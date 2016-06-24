@@ -1,15 +1,25 @@
 package com.xiaobozheng.gankio.ui.activity;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import com.xiaobozheng.gankio.ui.base.BaseActivity;
 
-import com.xiaobozheng.gankio.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected void initView() {
+
     }
+
+    @Override
+    protected int getLayoutId() {
+        return 0;
+    }
+
+
+    @Override
+    protected void initData() {
+
+    }
+
 }

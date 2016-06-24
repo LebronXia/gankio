@@ -25,9 +25,6 @@ public class RecycentModel implements IRecycentModel {
 
     @Override
     public void getRecentlyData(Subscriber subscriber,int year, int month, int day) {
-        ApiManager.getRecentlyData(year, month, day)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+        ApiManager.getInstance().getRecentlyData(subscriber, year, month, day);
     }
 }

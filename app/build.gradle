@@ -20,13 +20,16 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.1.1'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.orhanobut:logger:1.10'
     compile 'com.android.support:recyclerview-v7:23.2.0'
     compile 'com.android.support:cardview-v7:23.1.1'
+    // CaMnter ( Yuanyu Zhang https://github.com/CaMnter/EasyRecyclerView )
+    compile 'com.camnter.easyrecyclerview:easyrecyclerview:1.3'
     //dagger2
     compile 'com.google.dagger:dagger:2.0'
     provided 'com.google.dagger:dagger-compiler:2.0'
@@ -48,4 +51,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     //圆形图片
     compile 'com.makeramen:roundedimageview:2.2.1'
+    compile project(':library')
+    compile 'net.orfjackal.retrolambda:retrolambda:2.3.0'
 }

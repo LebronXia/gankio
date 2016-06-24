@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:checked="true"
+        android:icon="@mipmap/ic_home"
+        android:title="@string/common_home"
+        />
+    <item
+        android:id="@+id/navigation_daily"
+        android:checked="true"
+        android:icon="@mipmap/ic_daily"
+        android:title="@string/common_daily"
+        />
+    <item
+        android:id="@+id/navigation_sort"
+        android:checked="true"
+        android:icon="@mipmap/ic_sort"
+        android:title="@string/common_sort"
+        />
+</menu>
