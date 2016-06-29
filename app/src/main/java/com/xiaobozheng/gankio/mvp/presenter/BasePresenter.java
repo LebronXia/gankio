@@ -14,15 +14,21 @@ public class BasePresenter<V> implements Presenter<V> {
 
     public V mvpView;
     public CompositeSubscription mCompositeSubscription;
+
     @Override
     public void attachView(V view) {
-        this.mvpView = mvpView;
+        this.mvpView = view;
+        this.mCompositeSubscription = new CompositeSubscription();
     }
 
     @Override
     public void detachView() {
         this.mvpView = null;
         onUnsubscribe();
+    }
+
+    public V getMvpView(){
+        return mvpView;
     }
 
     /**

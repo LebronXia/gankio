@@ -1,9 +1,9 @@
 package com.xiaobozheng.gankio.data.API;
 
-import com.xiaobozheng.gankio.data.model.GankDataBean;
-import com.xiaobozheng.gankio.data.model.RecentBeanResult;
+import com.xiaobozheng.gankio.data.model.GankDaily;
 import com.xiaobozheng.gankio.data.model.RecentlyBean;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -20,7 +20,7 @@ import rx.schedulers.Schedulers;
  * Created by xiaobozheng on 6/22/2016.
  */
 public class ApiManager {
-    private static final String BASE_URL = "http://gank.io/api";
+    private static final String BASE_URL = "http://gank.io/api/";
     private static final int DEFAULT_TIMEOUT = 5;
 
     private GankApiManagerService mGankApiManagerService;
@@ -56,10 +56,9 @@ public class ApiManager {
      * @param day
      * @return
      */
-    public void getRecentlyData(Subscriber<RecentlyBean> subscriber, int year, int month, int day){
+    public void getRecentlyData(Subscriber<GankDaily> subscriber, int year, int month, int day){
         //yao gen qing qiu guolai de  shu ju baochi  yizhi
         mGankApiManagerService.getRecentlyData(year, month, day)
-                .map(new RecentResultFunc<RecentlyBean>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -67,15 +66,15 @@ public class ApiManager {
     }
 
     //用来统一处理Http的resultCode,并将HttpResult的Data部分剥离出来返回给subscriber
-    private class RecentResultFunc<T> implements Func1<RecentBeanResult<T>,T>{
-        @Override
-        public T call(RecentBeanResult<T> tRecentBeanResult) {
-            if (!tRecentBeanResult.isError()){
-                throw new RuntimeException();
-            }
-            return tRecentBeanResult.getResults();
-        }
-    }
+//    private class RecentResultFunc<T> implements Func1<RecentBeanResult<T>,T>{
+//        @Override
+//        public T call(RecentBeanResult<T> tRecentBeanResult) {
+//            if (!tRecentBeanResult.isError()){
+//                throw new RuntimeException();
+//            }
+//            return tRecentBeanResult.getResults();
+//        }
+//    }
 
 
 

@@ -19,8 +19,7 @@ public class RecycentModel implements IRecycentModel {
 
     private OnRecycentListener mOnRecycentListener;
 
-    public RecycentModel(OnRecycentListener mOnRecycentListener){
-        this.mOnRecycentListener = mOnRecycentListener;
+    public RecycentModel(){
     }
 
     @Override

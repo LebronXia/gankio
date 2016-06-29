@@ -14,6 +14,7 @@ import com.xiaobozheng.gankio.ui.base.BaseActivity;
 import com.xiaobozheng.gankio.ui.fragment.DailyDetailFragment;
 import com.xiaobozheng.gankio.ui.fragment.NewDetailFragment;
 import com.xiaobozheng.gankio.ui.fragment.SortFragment;
+import com.xiaobozheng.gankio.util.ToastUtils;
 
 import butterknife.Bind;
 
@@ -48,19 +49,22 @@ public class MainActivity extends BaseActivity {
                         currentFragment = new NewDetailFragment();
                         break;
                     case R.id.navigation_daily:
-                        currentFragment = new DailyDetailFragment();
+                        showToast("功能开发中");
+                        //currentFragment = new DailyDetailFragment();
                         break;
                     case R.id.navigation_sort:
-                        currentFragment = new SortFragment();
+                        showToast("功能开发中");
+                       // currentFragment = new SortFragment();
                         break;
                 }
+                switchFragment();
                 if (mDrawerLayout != null) {
                     mDrawerLayout.closeDrawer(GravityCompat.START);
                 }
-
                 return true;
             }
         });
+        currentFragment = new NewDetailFragment();
         switchFragment();
     }
 
@@ -87,16 +91,10 @@ public class MainActivity extends BaseActivity {
     }
     //切换Fragment,不会重新加载
     public void switchContent(Fragment fragment, String tilte){
-        if (currentFragment != fragment){
-            currentFragment = fragment;
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            if (!fragment.isAdded()){
-                transaction.hide(lastFragment).add(R.id.framelayout, currentFragment);
-            } else {
-                transaction.hide(lastFragment).show(currentFragment).commit();
-            }
-            lastFragment = currentFragment;
-        }
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.framelayout,fragment);
+        transaction.commit();
+        getSupportActionBar().setTitle(tilte);
     }
 
 }
