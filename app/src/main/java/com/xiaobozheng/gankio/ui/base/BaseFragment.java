@@ -34,6 +34,8 @@ import android.widget.Toast;
 
 import com.xiaobozheng.gankio.util.ToastUtils;
 
+import butterknife.ButterKnife;
+
 
 /**
  * Description：BaseFragment
@@ -65,13 +67,18 @@ public abstract class BaseFragment extends Fragment {
             ViewGroup parent = (ViewGroup) this.self.getParent();
             parent.removeView(this.self);
         }
-
+        ButterKnife.bind(this,this.self);
         this.initViews(this.self, savedInstanceState);
         this.initData();
         this.initListeners();
         return this.self;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+    }
 
     /**
      * Fill in layout id

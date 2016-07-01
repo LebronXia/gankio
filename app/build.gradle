@@ -31,7 +31,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:design:23.1.1'
@@ -62,8 +62,9 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     // Glide
     compile 'com.github.bumptech.glide:glide:3.6.1'
-
     //圆形图片
     compile 'com.makeramen:roundedimageview:2.2.1'
-
+    //https://github.com/chrisbanes/PhotoView
+    //http://www.cnblogs.com/leestar54/p/4220068.html  图片查看
+    compile 'com.github.chrisbanes.photoview:library:1.2.4'
 }

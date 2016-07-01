@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.text.style.TextAppearanceSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +16,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.camnter.easyrecyclerview.adapter.EasyRecyclerViewAdapter;
 import com.camnter.easyrecyclerview.holder.EasyRecyclerViewHolder;
+import com.orhanobut.logger.Logger;
 import com.xiaobozheng.gankio.Constant.Constant;
 import com.xiaobozheng.gankio.R;
 import com.xiaobozheng.gankio.data.model.GankDataBean;
 import com.xiaobozheng.gankio.util.GankTypeDict;
+import com.xiaobozheng.gankio.util.GlideUtils;
 import com.xiaobozheng.gankio.widget.RatioImageView;
 
 import java.util.List;
@@ -33,11 +36,17 @@ public class DailyDetailAdapter extends EasyRecyclerViewAdapter{
     private int cardCategoryPaddingTopBottom;  //字体与顶部和底部的距离
     private int cardItemDivider;            //card的高度
     private static final int dividerColor = 0xffCCCCCC;
+    private DailyDetailAdapter.onCardItemClickListener onCardItemClickListener;
 
-    public DailyDetailAdapter() {
+    public DailyDetailAdapter(Context context) {
         this.context = context;
         Resources res = this.context.getResources();
         initCardItemStyle(res);
+    }
+
+    @Override
+    public int getRecycleViewItemType(int position) {
+        return 0;
     }
 
     private void initCardItemStyle(Resources res){
@@ -47,42 +56,13 @@ public class DailyDetailAdapter extends EasyRecyclerViewAdapter{
         this.cardItemDivider = res.getDimensionPixelOffset(R.dimen.card_item_divider);
     }
 
-    @Override
-    public int getItemCount() {
-        return super.getItemCount();
-    }
-
-    @Override
-    public <T> T getItem(int position) {
-        return super.getItem(position);
-    }
-
-    @Override
-    public <T> T getItemByPosition(int position) {
-        return super.getItemByPosition(position);
-    }
-
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return super.onCreateViewHolder(parent, viewType);
-    }
-
-    @Override
-    public void setOnItemClickListener(EasyRecyclerViewHolder.OnItemClickListener onItemClickListener) {
-        super.setOnItemClickListener(onItemClickListener);
-    }
-
-    @Override
-    public void setOnItemLongClickListener(EasyRecyclerViewHolder.OnItemLongClickListener onItemLongClickListener) {
-        super.setOnItemLongClickListener(onItemLongClickListener);
-    }
-
     //添加布局格式
     @Override
     public int[] getItemLayouts() {
         return new int[]{R.layout.item_daily_detail};
     }
 
+    //onBindView的position是指相对于整个数据集的位置，而不是显示view的位置
     @Override
     public void onBindRecycleViewHolder(EasyRecyclerViewHolder viewHolder, int position) {
         //获取各个列表所表示数据
@@ -102,10 +82,46 @@ public class DailyDetailAdapter extends EasyRecyclerViewAdapter{
             //获取到类型所对应的id值找到福利图片
             if (GankTypeDict.urlType2TypeDict.get(gankDataBean.getType()) == Constant.welfare){
                 RatioImageView welfareIV = this.createRationImageView();
-               // Glide
+                GlideUtils.display(welfareIV, gankDataBean.getUrl());
+                //设置图片能点击事件
+                welfareIV.setOnClickListener(v -> {
+                    if (DailyDetailAdapter.this.onCardItemClickListener != null){
+                        DailyDetailAdapter.this.onCardItemClickListener.onWelfareOnClick(
+                                gankDataBean.getUrl(), gankDataBean.getDesc(), v
+                        );
+                    }
+                });
+                detailLL.addView(welfareIV);
+            } else {
+                TextView itemText = this.creatCardItemText(gankDataBean);
+               // itemText.setText("哈哈哈哈哈哈哈");
+                detailLL.addView(itemText);
             }
         }
 
+    }
+
+    //常见item字体
+    private TextView creatCardItemText(GankDataBean gankDataBean){
+        TextView itemText = (TextView) LayoutInflater.from(this.context)
+                .inflate(R.layout.view_card_item,null);
+        itemText.setPadding(this.cardItemPadding, this.cardItemPadding, this.cardItemPadding,
+                this.cardItemPadding);
+
+        String content = gankDataBean.getDesc().trim() + "  " + String.format("via." + gankDataBean.getWho());
+
+        itemText.setText(content);
+        //itemText.setTag(R.id.tag_card_item_url, baseGankData.url);
+        //itemText.setTag(R.id.tag_card_item_desc, baseGankData.desc.trim());
+        //itemText.setTag(R.id.tag_card_item_type, baseGankData.type);
+        itemText.setOnClickListener(v -> {
+            if (DailyDetailAdapter.this.onCardItemClickListener != null){
+                DailyDetailAdapter.this.onCardItemClickListener.onCardItemOnclick(
+                        gankDataBean.getType(),gankDataBean.getDesc(),gankDataBean.getUrl()
+                );
+            }
+        });
+        return itemText;
     }
 
     //创建分割线
@@ -138,8 +154,14 @@ public class DailyDetailAdapter extends EasyRecyclerViewAdapter{
         return  tv_categoty;
     }
 
-    @Override
-    public int getRecycleViewItemType(int position) {
-        return 0;
+    public void setOnCardItemClickListener(DailyDetailAdapter.onCardItemClickListener onCardItemClickListener){
+        this.onCardItemClickListener = onCardItemClickListener;
+
     }
+
+    public interface onCardItemClickListener{
+        void onCardItemOnclick(String urlType, String title, String url);
+        void onWelfareOnClick(String url, String title, View v);
+    }
+
 }
