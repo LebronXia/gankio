@@ -22,9 +22,14 @@ public class RecentPresent extends BasePresenter<RecentView>{
     public RecentPresent(RecentView view){
         attachView(view);
         mRecycentModel = new RecycentModel();
-
     }
 
+    /**
+     * 获得最近的数据
+     * @param year
+     * @param month
+     * @param day
+     */
     public void getRecentData(int year, int month, int day) {
         RecentPresent.this.getMvpView().showLoading();
         Subscriber subscriber = new Subscriber<GankDaily>() {

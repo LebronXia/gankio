@@ -146,6 +146,7 @@ public class DailyDetailAdapter extends EasyRecyclerViewAdapter{
                 this.cardItemPadding,this.cardCategoryPaddingTopBottom);
 
         tv_categoty.setText(urlType);
+        Logger.d("urlType" + urlType);
         tv_categoty.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         tv_categoty.setTextSize(20);
         tv_categoty.setTextColor(GankTypeDict.urlType2ColorDict.get(urlType));
