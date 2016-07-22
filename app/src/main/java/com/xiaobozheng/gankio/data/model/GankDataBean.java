@@ -1,18 +1,28 @@
 package com.xiaobozheng.gankio.data.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by xiaobozheng on 6/22/2016.
  */
 public class GankDataBean {
-
+    @SerializedName("_id")
     private String _id;
+    @SerializedName("createdAt")
     private String createdAt;
+    @SerializedName("desc")
     private String desc;
+    @SerializedName("publishedAt")
     private String publishedAt;
+    @SerializedName("source")
     private String source;
+    @SerializedName("type")
     private String type;
+    @SerializedName("url")
     private String url;
-    private boolean usesd;
+    @SerializedName("used")
+    private boolean used;
+    @SerializedName("who")
     private String who;
 
     public String get_id() {
@@ -64,11 +74,11 @@ public class GankDataBean {
     }
 
     public boolean isUsesd() {
-        return usesd;
+        return used;
     }
 
-    public void setUsesd(boolean usesd) {
-        this.usesd = usesd;
+    public void setUsesd(boolean used) {
+        this.used = used;
     }
 
     public String getUrl() {

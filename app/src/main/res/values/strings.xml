@@ -4,4 +4,9 @@
     <string name="common_home">最新</string>
     <string name="common_daily">每日精彩</string>
     <string name="common_sort">分类浏览</string>
+    
+    <string name="action_share">分享</string>
+    <string name="action_refresh">刷新</string>
+    <string name="action_copy_url">复制链接</string>
+    <string name="action_open_url">打开链接</string>
 </resources>

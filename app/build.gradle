@@ -67,4 +67,5 @@ dependencies {
     //https://github.com/chrisbanes/PhotoView
     //http://www.cnblogs.com/leestar54/p/4220068.html  图片查看
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
+    compile 'com.daimajia.numberprogressbar:library:1.2'
 }

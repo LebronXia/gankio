@@ -35,9 +35,6 @@ public class MainActivity extends BaseActivity {
     protected void initView() {
         mToolbar.setTitle("Toolbar");
         mToolbar.setTitleTextColor(Color.parseColor("#ffffff"));
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,mToolbar,R.string.app_name,R.string.app_name);
         mDrawerToggle.syncState();
         mDrawerLayout.setDrawerListener(mDrawerToggle);

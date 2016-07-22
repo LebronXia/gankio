@@ -1,10 +1,12 @@
 package com.xiaobozheng.gankio.ui.base;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -19,22 +21,26 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    @Bind(R.id.toolbar) protected Toolbar mToolbar;
+    @Bind(R.id.toolbar)
+    protected Toolbar mToolbar;
     @Bind(R.id.app_bar_layout) protected AppBarLayout mAppBarLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.setContentView(this.getLayoutId());
-        if (getLayoutId() != 0){
-            setContentView(getLayoutId());
+        this.setContentView(getLayoutId());
+        ButterKnife.bind(this);
+        //mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        if(canBack()){
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        ButterKnife.bind(this);
-
-        initView();
         initData();
+        initView();
+
     }
 
     @Override
@@ -48,6 +54,20 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void initView();
 
     protected abstract void initData();
+
+    public boolean canBack(){
+        return false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home){
+            onBackPressed();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
 
     /*********
      * Toast *

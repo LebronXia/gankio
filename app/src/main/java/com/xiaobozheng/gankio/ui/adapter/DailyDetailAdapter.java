@@ -81,7 +81,8 @@ public class DailyDetailAdapter extends EasyRecyclerViewAdapter{
             }
             //获取到类型所对应的id值找到福利图片
             if (GankTypeDict.urlType2TypeDict.get(gankDataBean.getType()) == Constant.welfare){
-                RatioImageView welfareIV = this.createRationImageView();
+                Logger.i(gankDataBean.getUrl());
+            RatioImageView welfareIV = this.createRationImageView();
                 GlideUtils.display(welfareIV, gankDataBean.getUrl());
                 //设置图片能点击事件
                 welfareIV.setOnClickListener(v -> {

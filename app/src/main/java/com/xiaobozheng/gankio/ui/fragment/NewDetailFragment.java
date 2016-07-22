@@ -1,25 +1,22 @@
 package com.xiaobozheng.gankio.ui.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
-import com.camnter.easyrecyclerview.adapter.EasyRecyclerViewAdapter;
 import com.camnter.easyrecyclerview.widget.EasyRecyclerView;
 import com.camnter.easyrecyclerview.widget.decorator.EasyBorderDividerItemDecoration;
-import com.orhanobut.logger.Logger;
 import com.xiaobozheng.gankio.R;
 import com.xiaobozheng.gankio.data.model.GankDaily;
 import com.xiaobozheng.gankio.data.model.GankDataBean;
 import com.xiaobozheng.gankio.mvp.presenter.impl.RecentPresent;
 import com.xiaobozheng.gankio.mvp.view.RecentView;
+import com.xiaobozheng.gankio.ui.activity.WebActivity;
 import com.xiaobozheng.gankio.ui.adapter.DailyDetailAdapter;
 import com.xiaobozheng.gankio.ui.base.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import butterknife.Bind;
 
@@ -54,7 +51,18 @@ public class NewDetailFragment extends BaseFragment implements RecentView{
         this.dailydetailRv.addItemDecoration(decoration);
 
         this.detailAdapter = new DailyDetailAdapter(context);
-        //this.detailAdapter.setOnItemClickListener(context);
+        this.detailAdapter.setOnCardItemClickListener(new DailyDetailAdapter.onCardItemClickListener() {
+            @Override
+            public void onCardItemOnclick(String urlType, String title, String url) {
+                startActivity(WebActivity.newIntent(getActivity(), url, title));
+            }
+
+            @Override
+            public void onWelfareOnClick(String url, String title, View v) {
+
+            }
+        });
+
         this.dailydetailRv.setAdapter(detailAdapter);
     }
 
