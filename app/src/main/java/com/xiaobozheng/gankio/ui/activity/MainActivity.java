@@ -11,9 +11,11 @@ import android.view.MenuItem;
 
 import com.xiaobozheng.gankio.R;
 import com.xiaobozheng.gankio.ui.base.BaseActivity;
+import com.xiaobozheng.gankio.ui.fragment.CategoryFragment;
 import com.xiaobozheng.gankio.ui.fragment.DailyDetailFragment;
 import com.xiaobozheng.gankio.ui.fragment.NewDetailFragment;
 import com.xiaobozheng.gankio.ui.fragment.SortFragment;
+import com.xiaobozheng.gankio.util.PreferencesManager;
 import com.xiaobozheng.gankio.util.ToastUtils;
 
 import butterknife.Bind;
@@ -25,11 +27,13 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.navigation_view)
     NavigationView mNavigationView;
     private ActionBarDrawerToggle mDrawerToggle;
+
     private Fragment currentFragment, lastFragment;
     private int lastMenuItemId;
     private NewDetailFragment mNewDetailFragment;
     private DailyDetailFragment mDailyDetailFragment;
-    private SortFragment mSortFragment;
+    private CategoryFragment mCategoryFragment;
+
 
     @Override
     protected void initView() {
@@ -41,24 +45,25 @@ public class MainActivity extends BaseActivity {
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.navigation_home:
-                        currentFragment = new NewDetailFragment();
-                        break;
-                    case R.id.navigation_daily:
-                        showToast("功能开发中");
-                        //currentFragment = new DailyDetailFragment();
-                        break;
-                    case R.id.navigation_sort:
-                        showToast("功能开发中");
-                       // currentFragment = new SortFragment();
-                        break;
-                }
-                switchFragment();
-                if (mDrawerLayout != null) {
-                    mDrawerLayout.closeDrawer(GravityCompat.START);
-                }
-                return true;
+//                switch (item.getItemId()){
+//                    case R.id.navigation_home:
+//                        currentFragment = new NewDetailFragment();
+//                        break;
+//                    case R.id.navigation_daily:
+//                        showToast("功能开发中");
+//                        //currentFragment = new DailyDetailFragment();
+//                        break;
+//                    case R.id.navigation_sort:
+//                        showToast("功能开发中");
+//                       // currentFragment = new SortFragment();
+//                        break;
+//                }
+//                switchFragment();
+//                if (mDrawerLayout != null) {
+//                    mDrawerLayout.closeDrawer(GravityCompat.START);
+//                }
+//                return true;
+                return menuItemChecked(item.getItemId());
             }
         });
         currentFragment = new NewDetailFragment();
@@ -93,5 +98,28 @@ public class MainActivity extends BaseActivity {
         transaction.commit();
         getSupportActionBar().setTitle(tilte);
     }
+
+    private boolean menuItemChecked(int itemId){
+        switch (itemId) {
+            case R.id.navigation_home:
+                if (PreferencesManager.getInstance().getKeyRecently_isCheked() == false) {
+                    currentFragment = new NewDetailFragment();
+                    PreferencesManager.getInstance().setKeyRecently_isCheked(true);
+                } else {
+                    break;
+                }
+                break;
+            case R.id.navigation_daily:
+                showToast("功能开发中");
+                //currentFragment = new DailyDetailFragment();
+                break;
+            case R.id.navigation_sort:
+                showToast("功能开发中");
+                // currentFragment = new SortFragment();
+                break;
+        }
+        return true;
+    }
+
 
 }

@@ -1,21 +1,21 @@
 package com.xiaobozheng.gankio.mvp.presenter.impl;
 
-import com.camnter.easyrecyclerview.adapter.EasyRecyclerViewAdapter;
 import com.orhanobut.logger.Logger;
-import com.xiaobozheng.gankio.data.model.GankDaily;
-import com.xiaobozheng.gankio.data.model.RecentlyBean;
+import com.xiaobozheng.gankio.data.model.GankDataBean;
 import com.xiaobozheng.gankio.mvp.model.impl.RecycentModel;
 import com.xiaobozheng.gankio.mvp.presenter.BasePresenter;
-import com.xiaobozheng.gankio.mvp.view.RecentView;
+import com.xiaobozheng.gankio.mvp.view.Impl.RecentView;
 
-import java.util.List;
-
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import rx.Subscriber;
 
 /**
  * Created by xiaobozheng on 6/22/2016.
  */
 public class RecentPresent extends BasePresenter<RecentView>{
+    private static final int DAY_OF_MILLISECOND = 24*60*60*1000;
     private RecycentModel mRecycentModel;
     private RecentView mRecentView;
 
@@ -26,13 +26,17 @@ public class RecentPresent extends BasePresenter<RecentView>{
 
     /**
      * 获得最近的数据
-     * @param year
-     * @param month
-     * @param day
+     * @param date
      */
-    public void getRecentData(int year, int month, int day) {
+    public void getRecentData(Date date) {
         RecentPresent.this.getMvpView().showLoading();
-        Subscriber subscriber = new Subscriber<GankDaily>() {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH) + 1;
+        int mDay = c.get(Calendar.DAY_OF_MONTH) - 1;
+        Logger.e(mDay + ":天数");
+        Subscriber subscriber = new Subscriber<ArrayList<ArrayList<GankDataBean>>>() {
             @Override
             public void onCompleted() {
                 RecentPresent.this.getMvpView().hideLoading();
@@ -46,12 +50,19 @@ public class RecentPresent extends BasePresenter<RecentView>{
             }
 
             @Override
-            public void onNext(GankDaily gankDailiy) {
-                Logger.d("完成");
-                RecentPresent.this.getMvpView().showData(gankDailiy);
+            public void onNext(ArrayList<ArrayList<GankDataBean>> mGankList) {
+                // 如果有一天数据为空，则继续获取下一天的数据
+               if (mGankList.isEmpty()){
+                   getRecentData(new Date(date.getTime()-DAY_OF_MILLISECOND));
+                   Logger.d("没数据");
+               } else {
+                   Logger.d("完成");
+                   RecentPresent.this.getMvpView().showData(mGankList);
+               }
+
             }
         };
-        mRecycentModel.getRecentlyData(subscriber,year,month,day);
+        mRecycentModel.getRecentlyData(subscriber,mYear,mMonth,mDay);
         //注册
         subscribe(subscriber);
     }

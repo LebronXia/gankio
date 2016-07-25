@@ -11,6 +11,8 @@ package com.xiaobozheng.gankio.Constant;
  * Created by xiaobozheng on 6/30/2016.
  */
 public class Constant {
+
+    public static final String[] GankCategory = new String[]{"all", "休息视频", "福利", "Android", "iOS", "拓展资源", "前端", "瞎推荐"};
     public static final String GANK_HOME_PAGE_NAME = "干货集中营";
     public static final String GANK_HOME_PAGE_URL = "http://gank.io/";
 

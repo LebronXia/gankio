@@ -1,8 +1,9 @@
 package com.xiaobozheng.gankio.data.API;
 
 import com.xiaobozheng.gankio.data.model.GankDaily;
-import com.xiaobozheng.gankio.data.model.RecentlyBean;
+import com.xiaobozheng.gankio.data.model.GankDataBean;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -56,11 +57,13 @@ public class ApiManager {
      * @param day
      * @return
      */
-    public void getRecentlyData(Subscriber<GankDaily> subscriber, int year, int month, int day){
+    public void getRecentlyData(Subscriber<ArrayList<ArrayList<GankDataBean>>> subscriber, int year, int month, int day){
         //yao gen qing qiu guolai de  shu ju baochi  yizhi
         mGankApiManagerService.getRecentlyData(year, month, day)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
+                .map(GankDaily -> GankDaily.results)
+                .map(this::addAllResults)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -75,6 +78,32 @@ public class ApiManager {
 //            return tRecentBeanResult.getResults();
 //        }
 //    }
+    //将数据添加到Arraylist中
+    private ArrayList<ArrayList<GankDataBean>> addAllResults(GankDaily.DailyResults results){
+        ArrayList<ArrayList<GankDataBean>> mGankList = new ArrayList<>();
+        if (results.welfareData != null && results.welfareData.size() > 0){
+            mGankList.add(results.welfareData);
+        }
+        if (results.androidData != null && results.androidData.size() > 0){
+            mGankList.add(results.androidData);
+        }
+        if (results.iosData != null && results.iosData.size() > 0){
+            mGankList.add(results.iosData);
+        }
+        if (results.jsData != null && results.jsData.size() > 0){
+            mGankList.add(results.jsData);
+        }
+        if (results.videoData != null && results.videoData.size() > 0){
+            mGankList.add(results.videoData);
+        }
+        if (results.recommendData != null && results.recommendData.size() > 0){
+            mGankList.add(results.recommendData);
+        }
+        if (results.resourcesData != null && results.resourcesData.size() > 0){
+            mGankList.add(results.resourcesData);
+        }
+        return mGankList;
+    }
 
 
 

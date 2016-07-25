@@ -17,8 +17,6 @@ import rx.schedulers.Schedulers;
  */
 public class RecycentModel implements IRecycentModel {
 
-    private OnRecycentListener mOnRecycentListener;
-
     public RecycentModel(){
     }
 

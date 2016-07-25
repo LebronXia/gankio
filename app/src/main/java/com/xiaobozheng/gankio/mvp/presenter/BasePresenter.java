@@ -18,6 +18,7 @@ public class BasePresenter<V> implements Presenter<V> {
     @Override
     public void attachView(V view) {
         this.mvpView = view;
+        //负责管理CompositeSubscription
         this.mCompositeSubscription = new CompositeSubscription();
     }
 
