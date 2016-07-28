@@ -20,8 +20,12 @@ public class CategoryPresent extends BasePresenter<CategoryView>{
     }
 
     //获取类型数据
-    private void getCategory(){
+    public void getCategory(){
         CategoryPresent.this.getMvpView().showData(mCategoryModel.getCategory());
+    }
+
+    public void getCategoryData(){
+
     }
 
 }

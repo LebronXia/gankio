@@ -31,8 +31,7 @@ public class MainActivity extends BaseActivity {
     private ActionBarDrawerToggle mDrawerToggle;
 
     private FragmentManager mFragmentManager;
-    private BaseFragment mCurrentFragment,mLastFragment;
-    private int lastMenuItemId;
+    private BaseFragment mCurrentFragment;
     private NewDetailFragment mNewDetailFragment;
     private DailyDetailFragment mDailyDetailFragment;
     private CategoryFragment mCategoryFragment;
@@ -57,10 +56,13 @@ public class MainActivity extends BaseActivity {
                         break;
                     case R.id.navigation_daily:
                         showToast("功能开发中");
+
                         //currentFragment = new DailyDetailFragment();
                         break;
                     case R.id.navigation_sort:
                         showToast("功能开发中");
+                        clazz = CategoryFragment.class;
+                        mToolbar.setTitle("分类浏览");
                         // currentFragment = new SortFragment();
                         break;
                 }

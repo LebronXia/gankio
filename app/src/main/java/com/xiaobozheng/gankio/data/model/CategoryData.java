@@ -10,5 +10,5 @@ import java.util.List;
 public class CategoryData extends Error {
 
     @SerializedName("results")
-    private List<GankDataBean> results;
+    public List<GankDataBean> results;
 }

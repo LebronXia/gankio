@@ -1,10 +1,12 @@
 package com.xiaobozheng.gankio.ui.adapter;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.xiaobozheng.gankio.ui.fragment.CategoryListFragment;
+import com.xiaobozheng.gankio.util.ViewUtils;
 
 import java.util.List;
 
@@ -13,6 +15,7 @@ import java.util.List;
  */
 public class CategoryPageAdapter extends FragmentPagerAdapter{
 
+    private static final String BUNDLE_TYPE = "bundle_type";
     private List<Fragment> fragment;
     private List<String> titles;
 
@@ -34,8 +37,11 @@ public class CategoryPageAdapter extends FragmentPagerAdapter{
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = new  CategoryListFragment();
-
+        Fragment fragment;
+        fragment = ViewUtils.createFragment(CategoryListFragment.class, false);
+        Bundle bundle = new Bundle();
+        bundle.putString(BUNDLE_TYPE, titles.get(position));
+        fragment.setArguments(bundle);
         return fragment;
     }
 }

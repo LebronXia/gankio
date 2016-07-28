@@ -1,5 +1,7 @@
 package com.xiaobozheng.gankio.data.API;
 
+import com.google.common.eventbus.Subscribe;
+import com.xiaobozheng.gankio.data.model.CategoryData;
 import com.xiaobozheng.gankio.data.model.GankDaily;
 import com.xiaobozheng.gankio.data.model.GankDataBean;
 
@@ -64,6 +66,22 @@ public class ApiManager {
                 .unsubscribeOn(Schedulers.io())
                 .map(GankDaily -> GankDaily.results)
                 .map(this::addAllResults)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 获取资源分类数据
+     * @param subscriber
+     * @param type
+     * @param size
+     * @param page
+     */
+    public void getCategoryData(Subscriber<List<GankDataBean>> subscriber, String type, int size, int page){
+        mGankApiManagerService.getCategoryData(type, size, page)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .map(CategoryData -> CategoryData.results)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }

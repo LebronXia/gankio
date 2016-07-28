@@ -1,5 +1,6 @@
 package com.xiaobozheng.gankio.mvp.view.Impl;
 
+import com.xiaobozheng.gankio.data.model.GankDataBean;
 import com.xiaobozheng.gankio.mvp.view.IBaseView;
 
 import java.util.List;
@@ -10,4 +11,5 @@ import java.util.List;
 public interface CategoryView extends IBaseView{
 
     void showData(List<String> list);
+    void showCategoyData(List<GankDataBean> gankDataBeanList);
 }
