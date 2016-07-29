@@ -11,5 +11,5 @@ import rx.Subscriber;
  */
 public interface ICategoryModel {
     List<String> getCategory();
-    void getCategoty(Subscriber subscriber, String type, int size, int page);
+    void getCategotyData(Subscriber subscriber, String type, int size, int page);
 }

@@ -34,7 +34,7 @@ public class RecentPresent extends BasePresenter<RecentView>{
         c.setTime(date);
         int mYear = c.get(Calendar.YEAR);
         int mMonth = c.get(Calendar.MONTH) + 1;
-        int mDay = c.get(Calendar.DAY_OF_MONTH) - 1;
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
         Logger.e(mDay + ":天数");
         Subscriber subscriber = new Subscriber<ArrayList<ArrayList<GankDataBean>>>() {
             @Override

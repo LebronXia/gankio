@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.orhanobut.logger.Logger;
 import com.xiaobozheng.gankio.R;
+import com.xiaobozheng.gankio.data.model.GankDataBean;
 import com.xiaobozheng.gankio.mvp.presenter.impl.CategoryPresent;
 import com.xiaobozheng.gankio.mvp.view.Impl.CategoryView;
 import com.xiaobozheng.gankio.ui.adapter.CategoryPageAdapter;
@@ -74,6 +75,11 @@ public class CategoryFragment extends BaseFragment implements CategoryView{
 
     @Override
     public void showError() {
+
+    }
+
+    @Override
+    public void showCategoyData(List<GankDataBean> gankDataBeanList) {
 
     }
 }

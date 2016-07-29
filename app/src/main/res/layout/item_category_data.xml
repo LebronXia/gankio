@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              app:contentPadding="0dp"
+              app:cardCornerRadius="@dimen/card_corner_radius"
+              app:cardElevation="@dimen/card_elevation"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="12dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_data_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="top|start"
+            android:maxLines="2"
+            android:paddingBottom="6dp"
+            android:text="尽量快点三分类考核卡"
+            android:textColor="@color/item_title_tv"
+            android:textSize="@dimen/item_title_tv"
+            />
+
+        <TextView
+            android:id="@+id/tv_data_via"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_data_title"
+            android:layout_marginTop="9dp"
+            android:text="代码家"
+            android:textSize="12dp"
+            android:textColor="@color/item_date"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_data_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_data_via"
+            android:layout_marginTop="12dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_data_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:text="github"
+                android:background="@drawable/bg_data_tag"
+                android:textColor="@color/item_tag_tv"
+                android:textSize="@dimen/item_tag_tv"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_data_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ll_data_tag"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:text="222"
+            android:textColor="@color/item_date"
+            android:textSize="@dimen/item_date_tv"/>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

@@ -24,7 +24,7 @@ import rx.schedulers.Schedulers;
  */
 public class ApiManager {
     private static final String BASE_URL = "http://gank.io/api/";
-    private static final int DEFAULT_TIMEOUT = 5;
+    private static final int DEFAULT_TIMEOUT = 50;
 
     private GankApiManagerService mGankApiManagerService;
     private Retrofit retrofit;

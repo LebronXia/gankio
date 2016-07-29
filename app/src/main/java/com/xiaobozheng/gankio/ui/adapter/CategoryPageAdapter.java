@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class CategoryPageAdapter extends FragmentPagerAdapter{
 
-    private static final String BUNDLE_TYPE = "bundle_type";
+    public static final String BUNDLE_TYPE = "bundle_type";
     private List<Fragment> fragment;
     private List<String> titles;
 

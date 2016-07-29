@@ -26,7 +26,7 @@ public class CategoryModel implements ICategoryModel{
     }
 
     @Override
-    public void getCategoty(Subscriber subscriber, String type, int size, int page) {
+    public void getCategotyData(Subscriber subscriber, String type, int size, int page) {
         ApiManager.getInstance().getCategoryData(subscriber, type, size, page);
     }
 }

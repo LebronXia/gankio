@@ -5,8 +5,6 @@
               android:layout_height="match_parent"
                 >
 
-    <include layout="@layout/view_toolbar"/>
-
 <com.xiaobozheng.gankio.widget.MultiSwipeRefreshLayout
     android:id="@+id/multi_swipe_refresh"
     android:layout_width="match_parent"
