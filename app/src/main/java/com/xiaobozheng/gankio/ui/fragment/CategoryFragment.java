@@ -55,7 +55,6 @@ public class CategoryFragment extends BaseFragment implements CategoryView{
     @Override
     public void showData(List<String> list) {
         if(list != null){
-            Logger.d(list.get(0)+ "标签列表的值");
             mCategoryPageAdapter = new CategoryPageAdapter(getChildFragmentManager(), list);
             mViewPager.setAdapter(mCategoryPageAdapter);
             //将TabLayout和VIewPager关联起来

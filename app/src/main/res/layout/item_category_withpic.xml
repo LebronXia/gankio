@@ -15,11 +15,13 @@
         android:padding="12dp"
         >
 
-    <ImageView
+    <com.xiaobozheng.gankio.widget.RatioImageView
         android:id="@+id/catedata_pic_iv"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:scaleType="centerCrop"
+        app:imageRatio="1.5"
+        app:imageRatioType="widthHeight"
         android:src="@mipmap/ic_zhanzheng"
         />
 
@@ -35,7 +37,7 @@
         />
 
         <TextView
-            android:id="@+id/tv_data_date"
+            android:id="@+id/catedata_date_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/catedata_via_tv"

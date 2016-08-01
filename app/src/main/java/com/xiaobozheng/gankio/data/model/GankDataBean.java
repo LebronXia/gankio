@@ -2,6 +2,8 @@ package com.xiaobozheng.gankio.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 /**
  * Created by xiaobozheng on 6/22/2016.
  */
@@ -9,11 +11,11 @@ public class GankDataBean {
     @SerializedName("_id")
     private String _id;
     @SerializedName("createdAt")
-    private String createdAt;
+    private Date createdAt;
     @SerializedName("desc")
     private String desc;
     @SerializedName("publishedAt")
-    private String publishedAt;
+    private Date publishedAt;
     @SerializedName("source")
     private String source;
     @SerializedName("type")
@@ -33,19 +35,19 @@ public class GankDataBean {
         this._id = _id;
     }
 
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    public String getPublishedAt() {
+    public Date getPublishedAt() {
         return publishedAt;
     }
 
-    public void setPublishedAt(String publishedAt) {
+    public void setPublishedAt(Date publishedAt) {
         this.publishedAt = publishedAt;
     }
 

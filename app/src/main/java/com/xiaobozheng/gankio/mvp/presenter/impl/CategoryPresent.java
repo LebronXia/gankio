@@ -50,6 +50,7 @@ public class CategoryPresent extends BasePresenter<CategoryView>{
                 CategoryPresent.this.getMvpView().hideLoading();
                 if (gankDataBeanList != null){
                     Logger.d(gankDataBeanList.get(0).getDesc());
+                    CategoryPresent.this.getMvpView().showCategoyData(gankDataBeanList);
                 }
             }
         };
