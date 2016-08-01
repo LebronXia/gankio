@@ -10,4 +10,6 @@
     <string name="action_copy_url">复制链接</string>
     <string name="action_open_url">打开链接</string>
     <string name="loading">加载中</string>
+    <string name="snap_load_fail">加载失败，请重试~</string>
+    <string name="retry">重试</string>
 </resources>

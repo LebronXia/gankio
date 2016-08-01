@@ -1,6 +1,7 @@
 package com.xiaobozheng.gankio.ui.fragment;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -73,7 +74,7 @@ public class CategoryListFragment extends BaseFragment implements CategoryView {
 
         this.mEasyRecyclerView.addItemDecoration(this.dataDecoration);
         //线性布局的管理器
-        this.mLinearLayoutManager = (LinearLayoutManager) this.mEasyRecyclerView.getLayoutManager();
+        this.mLinearLayoutManager = new LinearLayoutManager(getActivity());
         //瀑布流的管理器
         this.mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
@@ -107,28 +108,40 @@ public class CategoryListFragment extends BaseFragment implements CategoryView {
                 if (mCategoryListAdapter == null || mCategoryListAdapter.getItemCount() == 0) {
                     return;
                 }
+                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
 
-                LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                // 当不滚动时
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    //获取最后一个完全显示的ItemPosition
-                    int lastVisibleItem = manager.findLastCompletelyVisibleItemPosition();
-                    int totalItemCount = manager.getItemCount();
-
-                    Logger.d("滚动中.....");
-
-                    // 判断是否滚动到底部，并且是向右滚动
-                    if (lastVisibleItem == (totalItemCount - 1) && isSlidingToLast) {
-                        //加载更多功能的代码
-                        Logger.d("到底部了.....");
-                        mCurrentPage++;
-                        mSwipeRefreshLayout.setRefreshing(true);
-                        mCategoryPresent.getCategoryData(mType, mCurrentPage, true);
-                        canLoadingMore = false;
-
-                    }
-                }
-
+               if (layoutManager instanceof LinearLayoutManager){
+                   LinearLayoutManager manager = (LinearLayoutManager) layoutManager;
+                   int lastVisibleItem = manager.findLastCompletelyVisibleItemPosition();
+                   int totalItemCount = layoutManager.getItemCount();
+                   //不滚动的时候
+                   if (newState == RecyclerView.SCROLL_STATE_IDLE){
+                       //底部显示的Item位置为全部Iten-1的数量
+                       if (lastVisibleItem == (totalItemCount - 1) && isSlidingToLast){
+                           //加载更多功能的代码
+                           Logger.d("到底部了.....");
+                           mCurrentPage++;
+                           mCategoryPresent.getCategoryData(mType, mCurrentPage, true);
+                           canLoadingMore = false;
+                       }
+                   }
+               } else if (layoutManager instanceof StaggeredGridLayoutManager){
+                   Logger.d("这是StaggeredGridLayoutManager！~");
+                   StaggeredGridLayoutManager manager = (StaggeredGridLayoutManager) layoutManager;
+                   //获得底部的位置
+                   int[] bottom = manager.findLastCompletelyVisibleItemPositions(new int[2]);
+                   int lastItemCount = manager.getItemCount() - 1;
+                   if (newState == RecyclerView.SCROLL_STATE_IDLE){
+                       Logger.d("停止滚动！~" + bottom[0] +"," + bottom[1] + ",total:" + lastItemCount );
+                       if ((bottom[0] == lastItemCount || bottom[1] == lastItemCount)&& isSlidingToLast){
+                           //加载更多功能的代码
+                           Logger.d("到底部了.....");
+                           mCurrentPage++;
+                           mCategoryPresent.getCategoryData(mType, mCurrentPage, true);
+                           canLoadingMore = false;
+                       }
+                   }
+               }
             }
 
             @Override
@@ -151,6 +164,8 @@ public class CategoryListFragment extends BaseFragment implements CategoryView {
     protected void initData() {
         canLoadingMore = true;
         mType = getArguments().getString(CategoryPageAdapter.BUNDLE_TYPE);
+        Logger.d(mType + "在Category里的mType");
+        mCategoryListAdapter.setType(mType);
         //根据mType的类型改变布局的下划线
         switch (mType){
             case Constant.DATA_TYPE_WELFARE:
@@ -175,27 +190,35 @@ public class CategoryListFragment extends BaseFragment implements CategoryView {
 
     @Override
     public void showError() {
-
+        Snackbar.make(mEasyRecyclerView, R.string.snap_load_fail,Snackbar.LENGTH_LONG)
+                .setAction(R.string.retry, v -> {
+                    mCategoryPresent.getCategoryData(mType, mCurrentPage, true);
+                }).show();
     }
 
     @Override
     public void hideLoading() {
-
+        setRefresh(false);
     }
 
     @Override
     public void showLoading() {
-        mSwipeRefreshLayout.setRefreshing(false);
+        //mSwipeRefreshLayout.setRefreshing(false);
+        setRefresh(true);
+    }
+
+    @Override
+    public void onDestroy() {
+        mCategoryPresent.detachView();
+        super.onDestroy();
     }
 
     @Override
     public void showCategoyData(List<GankDataBean> gankDataBeanList) {
     if (gankDataBeanList != null && gankDataBeanList.size() > 0){
         if (mCurrentPage == 1){
-            mCategoryListAdapter.setType(mType);
             mCategoryListAdapter.setList(gankDataBeanList);
         } else {
-            mCategoryListAdapter.setType(mType);
             mCategoryListAdapter.addAll(gankDataBeanList);
         }
         canLoadingMore = true;
@@ -209,5 +232,27 @@ public class CategoryListFragment extends BaseFragment implements CategoryView {
     @Override
     public void showData(List<String> list) {
 
+    }
+
+
+    /**
+     * 设置刷新
+     * @param refresh
+     */
+    public void setRefresh(final boolean refresh){
+        if(mSwipeRefreshLayout == null) return;
+
+        if (!refresh){
+            mSwipeRefreshLayout.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                  if (mSwipeRefreshLayout != null){
+                      mSwipeRefreshLayout.setRefreshing(false);
+                  }
+                }
+            },2000);
+        } else {
+            mSwipeRefreshLayout.setRefreshing(true);
+        }
     }
 }

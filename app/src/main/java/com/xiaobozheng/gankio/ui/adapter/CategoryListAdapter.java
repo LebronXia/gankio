@@ -16,6 +16,7 @@ import com.xiaobozheng.gankio.data.model.GankDataBean;
 import com.xiaobozheng.gankio.ui.base.RecyclerViewAdapter;
 import com.xiaobozheng.gankio.util.DateUtils;
 import com.xiaobozheng.gankio.util.GlideUtils;
+import com.xiaobozheng.gankio.widget.RatioImageView;
 
 import org.w3c.dom.Text;
 
@@ -72,6 +73,13 @@ public class CategoryListAdapter extends EasyRecyclerViewAdapter {
         GankDataBean gankDataBean = this.getItem(position);
         if (gankDataBean == null) return;
 
+        RatioImageView dataWelPicTV = viewHolder.findViewById(R.id.categoty_wel_iv);
+
+        if (TextUtils.isEmpty(gankDataBean.getUrl())){
+            GlideUtils.displayNative(dataWelPicTV, R.mipmap.img_default_gray);
+        } else {
+            GlideUtils.display(dataWelPicTV, gankDataBean.getUrl());
+        }
 
     }
 
@@ -192,7 +200,8 @@ public class CategoryListAdapter extends EasyRecyclerViewAdapter {
     @Override
     public int getRecycleViewItemType(int position) {
         mGankDataBeanList = getList();
-        Logger.d("type类型;" + mType);
+
+     //   Logger.d("type类型;" + mType);
         //在all里区别福利和平时数据
         if (!mType.equals("福利")){
             //技术的列表下图片和技术数据

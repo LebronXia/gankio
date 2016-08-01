@@ -4,10 +4,15 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
+import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by xiaobozheng on 6/22/2016.
  */
-public class GankDataBean {
+public class GankDataBean extends RealmObject{
+    @PrimaryKey
     @SerializedName("_id")
     private String _id;
     @SerializedName("createdAt")
@@ -26,6 +31,8 @@ public class GankDataBean {
     private boolean used;
     @SerializedName("who")
     private String who;
+
+    private boolean isAll = false;
 
     public String get_id() {
         return _id;
@@ -97,5 +104,13 @@ public class GankDataBean {
 
     public void setWho(String who) {
         this.who = who;
+    }
+
+    public boolean isAll() {
+        return isAll;
+    }
+
+    public void setAll(boolean all) {
+        isAll = all;
     }
 }

@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.orhanobut.logger.Logger;
 import com.xiaobozheng.gankio.ui.fragment.CategoryListFragment;
 import com.xiaobozheng.gankio.util.ViewUtils;
 
@@ -16,7 +17,6 @@ import java.util.List;
 public class CategoryPageAdapter extends FragmentPagerAdapter{
 
     public static final String BUNDLE_TYPE = "bundle_type";
-    private List<Fragment> fragment;
     private List<String> titles;
 
     public CategoryPageAdapter(FragmentManager fm , List<String> list) {
@@ -38,10 +38,22 @@ public class CategoryPageAdapter extends FragmentPagerAdapter{
     @Override
     public Fragment getItem(int position) {
         Fragment fragment;
-        fragment = ViewUtils.createFragment(CategoryListFragment.class, false);
-        Bundle bundle = new Bundle();
-        bundle.putString(BUNDLE_TYPE, titles.get(position));
-        fragment.setArguments(bundle);
+        if (!"福利".equals(titles.get(position))){
+            fragment = ViewUtils.createFragment(CategoryListFragment.class, false);
+            Bundle bundle = new Bundle();
+            bundle.putString(BUNDLE_TYPE, titles.get(position));
+           // Logger.d("position" + position);
+           // Logger.d(titles.get(position) + "在CategoryPageAdapter里的mType");
+            fragment.setArguments(bundle);
+        } else {
+            fragment = ViewUtils.createFragment(CategoryListFragment.class, false);
+            Bundle bundle = new Bundle();
+            bundle.putString(BUNDLE_TYPE, titles.get(position));
+           // Logger.d("position" + position);
+           // Logger.d(titles.get(position) + "在CategoryPageAdapter里的mType");
+            fragment.setArguments(bundle);
+        }
+
         return fragment;
     }
 }
