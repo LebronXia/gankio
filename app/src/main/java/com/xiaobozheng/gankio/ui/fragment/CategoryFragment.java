@@ -17,6 +17,7 @@ import com.xiaobozheng.gankio.ui.base.BaseFragment;
 import java.util.List;
 
 import butterknife.Bind;
+import io.realm.Realm;
 
 /**
  * Created by xiaobozheng on 7/25/2016.
@@ -38,8 +39,10 @@ public class CategoryFragment extends BaseFragment implements CategoryView{
 
     @Override
     protected void initViews(View self, Bundle savedInstanceState) {
+        Realm realm = Realm.getDefaultInstance();
         this.mCategoryPresent = new CategoryPresent(this);
         this.context = getActivity();
+
     }
 
     @Override

@@ -28,6 +28,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
 }
 
 dependencies {
@@ -59,7 +63,7 @@ dependencies {
     //EventBus
     compile 'de.greenrobot:eventbus:2.4.0'
     //realm
-    compile 'io.realm:realm-android:0.87.5'
+    compile 'io.realm:realm-android:0.84.1'
     //picasso
     compile 'com.squareup.picasso:picasso:2.5.2'
     // Glide

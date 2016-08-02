@@ -1,6 +1,10 @@
 package com.xiaobozheng.gankio.data.API;
 
 import com.google.common.eventbus.Subscribe;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.xiaobozheng.gankio.data.model.CategoryData;
 import com.xiaobozheng.gankio.data.model.GankDaily;
 import com.xiaobozheng.gankio.data.model.GankDataBean;
@@ -9,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import io.realm.RealmObject;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -29,6 +34,19 @@ public class ApiManager {
     private GankApiManagerService mGankApiManagerService;
     private Retrofit retrofit;
 
+    Gson gson = new GsonBuilder()
+            .setExclusionStrategies(new ExclusionStrategy() {
+                @Override
+                public boolean shouldSkipField(FieldAttributes f) {
+                    return f.getDeclaringClass().equals(RealmObject.class);
+                }
+
+                @Override
+                public boolean shouldSkipClass(Class<?> clazz) {
+                    return false;
+                }
+            }).create();
+
     private ApiManager(){
         //手动创建一个OkHttpClient并设置超时时间
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
@@ -36,13 +54,15 @@ public class ApiManager {
 
         retrofit = new Retrofit.Builder()
                 .client(httpClientBuilder.build())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(BASE_URL)
                 .build();
 
         mGankApiManagerService = retrofit.create(GankApiManagerService.class);
     }
+
+
 
     private static class SingletonHolder{
         private static final ApiManager INSTANCE = new ApiManager();

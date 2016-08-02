@@ -61,7 +61,8 @@ public class CategoryPresent extends BasePresenter<CategoryView>{
                             .equalTo("type", mType)
                             .equalTo("isAll", false).findAll();
                 }
-
+                realm.commitTransaction();
+                realm.close();
                 if (gankDataBeanList != null && gankDataBeanList.size() > 0){
                     CategoryPresent.this.getMvpView().showCategoyData(gankDataBeanList);
                 }
@@ -85,6 +86,7 @@ public class CategoryPresent extends BasePresenter<CategoryView>{
                         }
                     }
                     realm.commitTransaction();
+                    realm.close();
                     CategoryPresent.this.getMvpView().showCategoyData(gankDataBeanList);
                 }
             }

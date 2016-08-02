@@ -27,11 +27,8 @@ public class GankDataBean extends RealmObject{
     private String type;
     @SerializedName("url")
     private String url;
-    @SerializedName("used")
-    private boolean used;
     @SerializedName("who")
     private String who;
-
     private boolean isAll = false;
 
     public String get_id() {
@@ -80,14 +77,6 @@ public class GankDataBean extends RealmObject{
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public boolean isUsesd() {
-        return used;
-    }
-
-    public void setUsesd(boolean used) {
-        this.used = used;
     }
 
     public String getUrl() {
