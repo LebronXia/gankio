@@ -36,6 +36,7 @@ import android.widget.Toast;
 import com.xiaobozheng.gankio.util.ToastUtils;
 
 import butterknife.ButterKnife;
+import io.realm.Realm;
 
 
 /**
@@ -46,6 +47,7 @@ import butterknife.ButterKnife;
 public abstract class BaseFragment extends Fragment {
 
     protected View self;
+    protected Realm realm;
 
     @Nullable @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public abstract class BaseFragment extends Fragment {
             ViewGroup parent = (ViewGroup) this.self.getParent();
             parent.removeView(this.self);
         }
+        realm = Realm.getDefaultInstance();
         ButterKnife.bind(this,this.self);
         this.initViews(this.self, savedInstanceState);
         this.initData();
@@ -67,6 +70,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        realm.close();
         ButterKnife.unbind(this);
     }
 

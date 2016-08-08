@@ -50,6 +50,7 @@ public class CategoryPresent extends BasePresenter<CategoryView>{
             public void onError(Throwable e) {
                 CategoryPresent.this.getMvpView().hideLoading();
                 CategoryPresent.this.getMvpView().showError();
+                Logger.d("错误~");
                 //查询全部数据
                // List<GankDataBean> gankDataBeanList = realm.where(GankDataBean.class).findAll();
                 List<GankDataBean> gankDataBeanList = new ArrayList<>();
@@ -61,8 +62,7 @@ public class CategoryPresent extends BasePresenter<CategoryView>{
                             .equalTo("type", mType)
                             .equalTo("isAll", false).findAll();
                 }
-                realm.commitTransaction();
-                realm.close();
+
                 if (gankDataBeanList != null && gankDataBeanList.size() > 0){
                     CategoryPresent.this.getMvpView().showCategoyData(gankDataBeanList);
                 }
@@ -72,22 +72,22 @@ public class CategoryPresent extends BasePresenter<CategoryView>{
             public void onNext(List<GankDataBean> gankDataBeanList) {
                 CategoryPresent.this.getMvpView().hideLoading();
                 if (gankDataBeanList != null){
-                    Logger.d(gankDataBeanList.get(0).getDesc());
-                    realm.beginTransaction();
-                    for (GankDataBean gankDataBean: gankDataBeanList){
-                        //插入数据
-                       // realm.copyToRealmOrUpdate(b);//修改操作
-                        //有一样的会直接修改
-                        if (mType.equals("ALL")){
-                            gankDataBean.setAll(true);
-                            realm.copyToRealm(gankDataBean);
-                        } else {
-                            realm.copyToRealm(gankDataBean);
-                        }
-                    }
-                    realm.commitTransaction();
-                    realm.close();
                     CategoryPresent.this.getMvpView().showCategoyData(gankDataBeanList);
+                    Logger.d(gankDataBeanList.get(0).getDesc());
+//                    realm.beginTransaction();
+//                    for (GankDataBean gankDataBean: gankDataBeanList){
+//                        //插入数据
+//                       // realm.copyToRealmOrUpdate(b);//修改操作
+//                        //有一样的会直接修改
+//                        if (mType.equals("ALL")){
+//                            Logger.d("有运行到这里");
+//                            gankDataBean.setAll(true);
+//                            realm.copyToRealm(gankDataBean);
+//                        } else {
+//                            realm.copyToRealm(gankDataBean);
+//                        }
+//                    }
+//                    realm.commitTransaction();
                 }
             }
         };

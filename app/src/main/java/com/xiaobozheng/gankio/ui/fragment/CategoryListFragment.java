@@ -29,6 +29,8 @@ import com.xiaobozheng.gankio.widget.MultiSwipeRefreshLayout;
 import java.util.List;
 
 import butterknife.Bind;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by xiaobozheng on 7/25/2016.
@@ -92,6 +94,13 @@ public class CategoryListFragment extends BaseFragment implements CategoryView {
                 @Override
                 public void onRefresh() {
                     mCurrentPage = 1;
+                    realm.executeTransaction(new Realm.Transaction(){
+                        @Override
+                        public void execute(Realm realm) {
+                            RealmResults<GankDataBean>results = realm.where(GankDataBean.class).equalTo("type", mType).findAll();
+                            results.clear();
+                        }
+                    });
                     mCategoryPresent.getCategoryData(mType, mCurrentPage, true);
                 }
             });
