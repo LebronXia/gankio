@@ -94,6 +94,9 @@ public class CategoryListFragment extends BaseFragment implements CategoryView {
                 @Override
                 public void onRefresh() {
                     mCurrentPage = 1;
+                    if (realm.isInTransaction()){
+                        realm.commitTransaction();
+                    }
                     realm.executeTransaction(new Realm.Transaction(){
                         @Override
                         public void execute(Realm realm) {
@@ -130,7 +133,7 @@ public class CategoryListFragment extends BaseFragment implements CategoryView {
                            //加载更多功能的代码
                            Logger.d("到底部了.....");
                            mCurrentPage++;
-                           mCategoryPresent.getCategoryData(mType, mCurrentPage, true);
+                           mCategoryPresent.getCategoryData(mType, mCurrentPage, false);
                            canLoadingMore = false;
                        }
                    }
@@ -146,7 +149,7 @@ public class CategoryListFragment extends BaseFragment implements CategoryView {
                            //加载更多功能的代码
                            Logger.d("到底部了.....");
                            mCurrentPage++;
-                           mCategoryPresent.getCategoryData(mType, mCurrentPage, true);
+                           mCategoryPresent.getCategoryData(mType, mCurrentPage, false);
                            canLoadingMore = false;
                        }
                    }
@@ -188,6 +191,7 @@ public class CategoryListFragment extends BaseFragment implements CategoryView {
                 this.mEasyRecyclerView.addItemDecoration(this.dataDecoration);
                 break;
         }
+        //在下拉刷新的时候加上true，防止上拉加载的时候没网重复添加数据
         mCategoryPresent.getCategoryData(mType, mCurrentPage, true);
 
     }

@@ -53,6 +53,9 @@ public class GlideUtils {
      */
     public static void display(ImageView view, String url) {
         displayUrl(view, url, R.mipmap.img_default_gray);
+//        Glide.with(context).load(url).placeholder(R.mipmap.img_default_gray)
+//                .into(view)
+
     }
 
 

@@ -1,5 +1,7 @@
 package com.xiaobozheng.gankio.mvp.presenter.impl;
 
+import android.util.Log;
+
 import com.bumptech.glide.util.FixedPreloadSizeProvider;
 import com.orhanobut.logger.Logger;
 import com.xiaobozheng.gankio.Constant.Constant;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 import rx.Subscriber;
 
 /**
@@ -50,21 +53,26 @@ public class CategoryPresent extends BasePresenter<CategoryView>{
             public void onError(Throwable e) {
                 CategoryPresent.this.getMvpView().hideLoading();
                 CategoryPresent.this.getMvpView().showError();
-                Logger.d("错误~");
-                //查询全部数据
-               // List<GankDataBean> gankDataBeanList = realm.where(GankDataBean.class).findAll();
-                List<GankDataBean> gankDataBeanList = new ArrayList<>();
-                if (mType.equals("ALL")){
-                    gankDataBeanList = realm.where(GankDataBean.class)
-                            .equalTo("isAll", true).findAll();
-                } else {
-                    gankDataBeanList = realm.where(GankDataBean.class)
-                            .equalTo("type", mType)
-                            .equalTo("isAll", false).findAll();
-                }
+                if(refresh){
+                    //查询全部数据
+                    // List<GankDataBean> gankDataBeanList = realm.where(GankDataBean.class).findAll();
+                    RealmResults<GankDataBean> realmResults = null;
+                    if (mType.equals("ALL")){
+                        Logger.d(mType + "~~");
+                        realmResults = realm.where(GankDataBean.class)
+                                .equalTo("isAll", true).findAll();
+                    } else {
+                        Logger.d(mType + "~~");
+                        realmResults = realm.where(GankDataBean.class)
+                                .equalTo("type", mType)
+                                .equalTo("isAll", false).findAll();
+                    }
 
-                if (gankDataBeanList != null && gankDataBeanList.size() > 0){
-                    CategoryPresent.this.getMvpView().showCategoyData(gankDataBeanList);
+                    if (realmResults != null && realmResults.size() > 0){
+                        CategoryPresent.this.getMvpView().showCategoyData(realmResults);
+                    }
+                } else {
+                    CategoryPresent.this.getMvpView().showError();
                 }
             }
 
@@ -74,20 +82,20 @@ public class CategoryPresent extends BasePresenter<CategoryView>{
                 if (gankDataBeanList != null){
                     CategoryPresent.this.getMvpView().showCategoyData(gankDataBeanList);
                     Logger.d(gankDataBeanList.get(0).getDesc());
-//                    realm.beginTransaction();
-//                    for (GankDataBean gankDataBean: gankDataBeanList){
-//                        //插入数据
-//                       // realm.copyToRealmOrUpdate(b);//修改操作
-//                        //有一样的会直接修改
-//                        if (mType.equals("ALL")){
-//                            Logger.d("有运行到这里");
-//                            gankDataBean.setAll(true);
-//                            realm.copyToRealm(gankDataBean);
-//                        } else {
-//                            realm.copyToRealm(gankDataBean);
-//                        }
-//                    }
-//                    realm.commitTransaction();
+
+                    for (GankDataBean gankDataBean : gankDataBeanList){
+                       // GankDataBean gankData = realm.createObject(GankDataBean.class);
+
+                        if (mType.equals("ALL")){
+                            gankDataBean.setAll(true);
+                        }
+                        if (realm.isInTransaction()){
+                            realm.commitTransaction();
+                        }
+                        realm.beginTransaction();
+                        realm.copyToRealmOrUpdate(gankDataBean);
+                        realm.commitTransaction();
+                    }
                 }
             }
         };
