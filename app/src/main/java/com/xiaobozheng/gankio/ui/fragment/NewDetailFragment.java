@@ -10,6 +10,7 @@ import com.xiaobozheng.gankio.R;
 import com.xiaobozheng.gankio.data.model.GankDataBean;
 import com.xiaobozheng.gankio.mvp.presenter.impl.RecentPresent;
 import com.xiaobozheng.gankio.mvp.view.Impl.RecentView;
+import com.xiaobozheng.gankio.ui.activity.PictureActivity;
 import com.xiaobozheng.gankio.ui.activity.WebActivity;
 import com.xiaobozheng.gankio.ui.adapter.DailyDetailAdapter;
 import com.xiaobozheng.gankio.ui.base.BaseFragment;
@@ -58,7 +59,7 @@ public class NewDetailFragment extends BaseFragment implements RecentView{
 
             @Override
             public void onWelfareOnClick(String url, String title, View v) {
-
+                startActivity(PictureActivity.newIntent(getActivity(), url, title));
             }
         });
 

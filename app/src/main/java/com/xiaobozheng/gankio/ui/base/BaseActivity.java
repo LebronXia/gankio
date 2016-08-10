@@ -69,6 +69,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    protected void setAppBarAlpha(float alpha){
+        mAppBarLayout.setAlpha(alpha);
+    }
+
     /*********
      * Toast *
      *********/
