@@ -3,6 +3,7 @@ package com.xiaobozheng.gankio.ui.fragment;
 import android.os.Bundle;
 import android.view.View;
 
+import com.umeng.analytics.MobclickAgent;
 import com.xiaobozheng.gankio.ui.base.BaseFragment;
 
 /**
@@ -27,5 +28,14 @@ public class DailyDetailFragment extends BaseFragment{
     @Override
     protected void initData() {
 
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("MainScreen"); //统计页面，"MainScreen"为页面名称，可自定义
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("MainScreen");
     }
 }

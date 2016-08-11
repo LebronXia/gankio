@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 
 import com.orhanobut.logger.Logger;
+import com.umeng.analytics.MobclickAgent;
 import com.xiaobozheng.gankio.R;
 import com.xiaobozheng.gankio.ui.base.BaseActivity;
 import com.xiaobozheng.gankio.ui.base.BaseFragment;
@@ -107,6 +108,15 @@ public class MainActivity extends BaseActivity {
             }
             mCurrentFragment = to;
 
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
 

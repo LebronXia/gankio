@@ -15,6 +15,7 @@ import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.umeng.analytics.MobclickAgent;
 import com.xiaobozheng.gankio.R;
 import com.xiaobozheng.gankio.ui.base.BaseActivity;
 import com.xiaobozheng.gankio.util.GlideUtils;
@@ -140,5 +141,14 @@ public class PictureActivity extends BaseActivity{
         intent.putExtra(PictureActivity.EXTRA_IMAGE_TITLE, desc);
         intent.putExtra(PictureActivity.EXTRA_IMAGE_URL, url);
         return intent;
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

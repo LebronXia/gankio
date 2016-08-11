@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.camnter.easyrecyclerview.widget.EasyRecyclerView;
 import com.camnter.easyrecyclerview.widget.decorator.EasyBorderDividerItemDecoration;
+import com.umeng.analytics.MobclickAgent;
 import com.xiaobozheng.gankio.R;
 import com.xiaobozheng.gankio.data.model.GankDataBean;
 import com.xiaobozheng.gankio.mvp.presenter.impl.RecentPresent;
@@ -104,6 +105,15 @@ public class NewDetailFragment extends BaseFragment implements RecentView{
     @Override
     public void showError() {
 
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("MainScreen"); //统计页面，"MainScreen"为页面名称，可自定义
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("MainScreen");
     }
 
 }

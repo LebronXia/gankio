@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import com.camnter.easyrecyclerview.widget.EasyRecyclerView;
 import com.camnter.easyrecyclerview.widget.decorator.EasyBorderDividerItemDecoration;
 import com.orhanobut.logger.Logger;
+import com.umeng.analytics.MobclickAgent;
 import com.xiaobozheng.gankio.Constant.Constant;
 import com.xiaobozheng.gankio.R;
 import com.xiaobozheng.gankio.data.model.GankDataBean;
@@ -276,13 +277,22 @@ public class CategoryListFragment extends BaseFragment implements CategoryView ,
             mSwipeRefreshLayout.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                  if (mSwipeRefreshLayout != null){
-                      mSwipeRefreshLayout.setRefreshing(false);
-                  }
+                    if (mSwipeRefreshLayout != null) {
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
                 }
-            },2000);
+            }, 2000);
         } else {
             mSwipeRefreshLayout.setRefreshing(true);
         }
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("MainScreen"); //统计页面，"MainScreen"为页面名称，可自定义
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("MainScreen");
     }
 }

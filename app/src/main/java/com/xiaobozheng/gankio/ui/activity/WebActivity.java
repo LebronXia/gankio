@@ -15,6 +15,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.daimajia.numberprogressbar.NumberProgressBar;
+import com.umeng.analytics.MobclickAgent;
 import com.xiaobozheng.gankio.R;
 import com.xiaobozheng.gankio.ui.base.BaseActivity;
 import com.xiaobozheng.gankio.util.Shares;
@@ -142,12 +143,15 @@ public class WebActivity extends BaseActivity{
     @Override protected void onPause() {
         if (mWebView != null) mWebView.onPause();
         super.onPause();
+        MobclickAgent.onPause(this);
+
     }
 
 
     @Override protected void onResume() {
         super.onResume();
         if (mWebView != null) mWebView.onResume();
+        MobclickAgent.onResume(this);
     }
 
     @Override
@@ -196,4 +200,5 @@ public class WebActivity extends BaseActivity{
         intent.putExtra(EXTRA_TITLE, title);
         return intent;
     }
+
 }

@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.orhanobut.logger.Logger;
+import com.umeng.analytics.MobclickAgent;
 import com.xiaobozheng.gankio.R;
 import com.xiaobozheng.gankio.data.model.GankDataBean;
 import com.xiaobozheng.gankio.mvp.presenter.impl.CategoryPresent;
@@ -89,5 +90,14 @@ public class CategoryFragment extends BaseFragment implements CategoryView{
     @Override
     public void showCategoyData(List<GankDataBean> gankDataBeanList) {
 
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("MainScreen"); //统计页面，"MainScreen"为页面名称，可自定义
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("MainScreen");
     }
 }
