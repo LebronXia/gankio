@@ -20,6 +20,8 @@ import com.xiaobozheng.gankio.R;
 import com.xiaobozheng.gankio.data.model.GankDataBean;
 import com.xiaobozheng.gankio.mvp.presenter.impl.CategoryPresent;
 import com.xiaobozheng.gankio.mvp.view.Impl.CategoryView;
+import com.xiaobozheng.gankio.ui.activity.PictureActivity;
+import com.xiaobozheng.gankio.ui.activity.WebActivity;
 import com.xiaobozheng.gankio.ui.adapter.CategoryListAdapter;
 import com.xiaobozheng.gankio.ui.adapter.CategoryPageAdapter;
 import com.xiaobozheng.gankio.ui.base.BaseFragment;
@@ -35,7 +37,7 @@ import io.realm.RealmResults;
 /**
  * Created by xiaobozheng on 7/25/2016.
  */
-public class CategoryListFragment extends BaseFragment implements CategoryView {
+public class CategoryListFragment extends BaseFragment implements CategoryView , CategoryListAdapter.OnGankClickListener{
 
     @Bind(R.id.rv_category)
     EasyRecyclerView mEasyRecyclerView;
@@ -170,6 +172,16 @@ public class CategoryListFragment extends BaseFragment implements CategoryView {
 
             }
         });
+
+        mCategoryListAdapter.setOnItemClickListener((view , position) -> {
+            GankDataBean gankDataBean = mCategoryListAdapter.getItem(position);
+            if (gankDataBean.getType().equals("福利")){
+                Logger.d("执行福利");
+                getActivity().startActivity(PictureActivity.newIntent(getActivity(),gankDataBean.getUrl(),gankDataBean.getDesc()));
+            } else {
+                getActivity().startActivity(WebActivity.newIntent(getActivity(),gankDataBean.getUrl(),gankDataBean.getDesc()));
+            }
+        });
     }
 
     @Override
@@ -199,6 +211,11 @@ public class CategoryListFragment extends BaseFragment implements CategoryView {
     private void clearDecoration(){
         this.mEasyRecyclerView.removeItemDecoration(this.dataDecoration);
         this.mEasyRecyclerView.removeItemDecoration(this.welfareDecoration);
+    }
+
+    @Override
+    public void onClickPicture(String url, String title, View view) {
+        startActivity(PictureActivity.newIntent(getActivity(), url, title));
     }
 
     @Override

@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -47,27 +48,9 @@ public class Support {
         return ni != null && ni.isConnectedOrConnecting();
     }
 
-    public static Observable<Uri> savaImageAndGetPathObservable(Context context, String url, String title){
-        //Bitmap bitmap = Picasso.with(context).load(url).get();
-        return Observable.create(new Observable.OnSubscribe<Bitmap>() {
-
-            @Override
-            public void call(Subscriber<? super Bitmap> subscriber) {
-                Bitmap bitmap = null;
-                try {
-                    bitmap = Picasso.with(context).load(url).get();
-                } catch (IOException e) {
-                    subscriber.onError(e);
-                }
-                if (bitmap == null) {
-                    subscriber.onError(new Exception("无法下载到图片"));
-                }
-                subscriber.onNext(bitmap);
-                subscriber.onCompleted();
-
-            }
-            //生成新的Obserable
-        }).flatMap(bitmap -> {
+    public static Observable<Uri> savaImageAndGetPathObservable(Context context, GlideBitmapDrawable glideBitmapDrawable, String url, String title){
+       // Bitmap bitmap = glideBitmapDrawable.getBitmap();
+        return Observable.just(glideBitmapDrawable.getBitmap()).flatMap(bitmap -> {
                     //设置存放的位置
                     File appDir = new File(Environment.getExternalStorageDirectory(),"meizi");
                     if (!appDir.exists()){

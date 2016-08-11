@@ -91,11 +91,14 @@ public class WebActivity extends BaseActivity{
                 } else {
                     Shares.share(WebActivity.this,"神秘星球消失~");
                 }
-                break;
+                return true;
+            case R.id.action_refresh:
+                mWebView.reload();
+                return true;
             case R.id.action_copy_url:
                 String copyDone = "复制成功";
                 Support.copyToClipBoard(this, mWebView.getUrl(), copyDone);
-                break;
+                return true;
             case R.id.action_open_url:
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
@@ -108,7 +111,7 @@ public class WebActivity extends BaseActivity{
                     //Toasts.showLong(R.string.tip_open_fail);
                     showToast("复制失败");
                 }
-                break;
+                return true;
 
         }
         return super.onOptionsItemSelected(item);
@@ -134,6 +137,17 @@ public class WebActivity extends BaseActivity{
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override protected void onPause() {
+        if (mWebView != null) mWebView.onPause();
+        super.onPause();
+    }
+
+
+    @Override protected void onResume() {
+        super.onResume();
+        if (mWebView != null) mWebView.onResume();
     }
 
     @Override
@@ -162,6 +176,7 @@ public class WebActivity extends BaseActivity{
         @Override
         public void onReceivedTitle(WebView view, String title) {
             super.onReceivedTitle(view, title);
+            setTitle(title);
         }
     };
 

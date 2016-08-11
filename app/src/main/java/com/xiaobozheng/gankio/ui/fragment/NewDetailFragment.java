@@ -72,6 +72,12 @@ public class NewDetailFragment extends BaseFragment implements RecentView{
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mRecentPresent.detachView();
+    }
+
+    @Override
     protected void initData() {
         mRecentPresent.getRecentData(new Date());
     }

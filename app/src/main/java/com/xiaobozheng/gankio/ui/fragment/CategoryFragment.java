@@ -66,6 +66,12 @@ public class CategoryFragment extends BaseFragment implements CategoryView{
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mCategoryPresent.detachView();
+    }
+
+    @Override
     public void showLoading() {
 
     }

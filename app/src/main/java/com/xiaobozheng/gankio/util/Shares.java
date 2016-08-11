@@ -2,6 +2,7 @@ package com.xiaobozheng.gankio.util;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 
 import com.xiaobozheng.gankio.R;
 
@@ -12,7 +13,7 @@ import java.net.URI;
  */
 public class Shares {
 
-    public static void shareImage(Context context, URI uri,String title ){
+    public static void shareImage(Context context, Uri uri, String title ){
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri);

@@ -12,4 +12,6 @@
     <string name="loading">加载中</string>
     <string name="snap_load_fail">加载失败，请重试~</string>
     <string name="retry">重试</string>
+    <string name="picture_has_save_to">图片已保存至 %s 文件夹</string>
+    <string name="share_meizhi_to">分享妹纸到...</string>
 </resources>

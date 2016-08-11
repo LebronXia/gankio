@@ -33,6 +33,7 @@ public class CategoryListAdapter extends EasyRecyclerViewAdapter {
     private List<GankDataBean> mGankDataBeanList;
     private String mType;
     private Context context;
+    private OnGankClickListener listener;
 
     public CategoryListAdapter(Context context) {
         super();
@@ -112,6 +113,9 @@ public class CategoryListAdapter extends EasyRecyclerViewAdapter {
 
         if (TextUtils.isEmpty(gankDataBean.getUrl())){
             GlideUtils.displayNative(dataPicIV, R.mipmap.img_default_gray);
+            dataPicIV.setOnClickListener(v -> {
+                listener.onClickPicture(gankDataBean.getUrl(), gankDataBean.getDesc(), v);
+            });
         } else {
             GlideUtils.display(dataPicIV, gankDataBean.getUrl());
         }
@@ -213,6 +217,14 @@ public class CategoryListAdapter extends EasyRecyclerViewAdapter {
         } else {
                 return LAYOUT_TYPE_WELFARE;
         }
+    }
+
+    public interface OnGankClickListener{
+        void onClickPicture(String url, String title, View view);
+    }
+
+    public void setListener(OnGankClickListener listener){
+        this.listener = listener;
     }
 
     //设置传进来的type类型
