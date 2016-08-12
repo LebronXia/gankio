@@ -24,8 +24,27 @@ android {
 
     buildTypes {
         release {
+           // 在debug type下正常输出日志信息，但是release type下，屏蔽日志输出
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+
+            debuggable false
+            shrinkResources true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //签名设置
+
+
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        // 输出apk名称为gankio_v1.0_2015-01-15_wandoujia.apk
+                        def fileName = "gankio_v${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
         }
     }
 
@@ -34,9 +53,15 @@ android {
     }
 
     productFlavors{
-        fir {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "fir"]
-        }
+        xiaomi {}
+        _360 {}
+        wandoujia {}
+    baidu{}
+        fir {}
+    }
+
+    productFlavors.all{flavor ->
+        flavor.manifestPlaceholders = [ UMENG_CHANNEL_VALUE:name ]
     }
 }
 
@@ -81,4 +106,6 @@ dependencies {
     //http://www.cnblogs.com/leestar54/p/4220068.html  图片查看
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
     compile 'com.daimajia.numberprogressbar:library:1.2'
+    compile 'me.zhanghai.android.materialprogressbar:library:1.1.7'
+
 }

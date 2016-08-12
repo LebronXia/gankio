@@ -11,6 +11,7 @@ import android.view.Window;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Toast;
 
+import com.umeng.analytics.MobclickAgent;
 import com.xiaobozheng.gankio.R;
 import com.xiaobozheng.gankio.util.ToastUtils;
 
@@ -42,7 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
+        MobclickAgent.setDebugMode( true );
         initData();
         initView();
 

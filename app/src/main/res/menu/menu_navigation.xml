@@ -18,4 +18,17 @@
         android:icon="@mipmap/ic_sort"
         android:title="@string/common_sort"
         />
+
+    <item android:title="About">
+        <menu>
+            <item
+                android:id="@+id/nav_about"
+                android:checkable="true"
+                android:icon="@mipmap/recurring_appointment_exception"
+                android:title="关于我"
+                />
+
+
+        </menu>
+    </item>
 </menu>

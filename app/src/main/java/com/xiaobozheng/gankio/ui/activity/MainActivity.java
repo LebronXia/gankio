@@ -1,5 +1,6 @@
 package com.xiaobozheng.gankio.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import com.xiaobozheng.gankio.ui.base.BaseFragment;
 import com.xiaobozheng.gankio.ui.fragment.CategoryFragment;
 import com.xiaobozheng.gankio.ui.fragment.DailyDetailFragment;
 import com.xiaobozheng.gankio.ui.fragment.NewDetailFragment;
+import com.xiaobozheng.gankio.util.Support;
 import com.xiaobozheng.gankio.util.ViewUtils;
 
 
@@ -61,10 +63,12 @@ public class MainActivity extends BaseActivity {
                         //currentFragment = new DailyDetailFragment();
                         break;
                     case R.id.navigation_sort:
-                        showToast("功能开发中");
                         clazz = CategoryFragment.class;
                         mToolbar.setTitle("分类浏览");
                         // currentFragment = new SortFragment();
+                        break;
+                    case  R.id.nav_about:
+                        startActivity(new Intent(MainActivity.this, AboutActivity.class));
                         break;
                 }
                 switchFragment(clazz);
@@ -93,7 +97,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
+       Logger.d(Support.getDeviceInfo(this));
     }
 
 

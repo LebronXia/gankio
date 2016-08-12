@@ -14,4 +14,14 @@
     <string name="retry">重试</string>
     <string name="picture_has_save_to">图片已保存至 %s 文件夹</string>
     <string name="share_meizhi_to">分享妹纸到...</string>
+
+    <string name="about_title">关于gankio</string>
+    <string name="about_nickName">Xiamu</string>
+    <string name="about_sign">我的世界是世界和平！</string>
+    <string name="about_github">www.baidu.com</string>
+    <string name="about_project_introduce">项目介绍</string>
+    <string name="about_project_introduce_content">gankio项目所用的基本上是Rx系列的框架 ( Square + ReactiveX ) :
+        \n\n\tRxJava\n\tRxAndroid\n\tOkhttp\n\tRetrofit\n\tButterknife\n\tGlide\n\tRealm
+        \n\n以基本的MVP模式为主划分模块，抽出Presenter作为View代理业务层，减轻View层代码的耦合度，然后集成了现在主流的RxJava+RxAndroid+Retrofit组合框架。
+        \n\nEasyGank：www.baidu.com\n\nApi接口提供：http://gank.io/api</string>
 </resources>
