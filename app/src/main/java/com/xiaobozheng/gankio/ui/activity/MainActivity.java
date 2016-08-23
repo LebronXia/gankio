@@ -56,6 +56,7 @@ public class MainActivity extends BaseActivity {
                         //mLastFragment = new NewDetailFragment();
                         clazz = NewDetailFragment.class;
                         mToolbar.setTitle("最新");
+                        switchFragment(clazz);
                         break;
                     case R.id.navigation_daily:
                         showToast("功能开发中");
@@ -65,13 +66,14 @@ public class MainActivity extends BaseActivity {
                     case R.id.navigation_sort:
                         clazz = CategoryFragment.class;
                         mToolbar.setTitle("分类浏览");
+                        switchFragment(clazz);
                         // currentFragment = new SortFragment();
                         break;
                     case  R.id.nav_about:
                         startActivity(new Intent(MainActivity.this, AboutActivity.class));
                         break;
                 }
-                switchFragment(clazz);
+
                 if (mDrawerLayout != null) {
                     mDrawerLayout.closeDrawer(GravityCompat.START);
                 }

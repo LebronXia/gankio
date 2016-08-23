@@ -17,6 +17,7 @@ public class Constant {
     public static final String GANK_HOME_PAGE_URL = "http://gank.io/";
 
     public static final String BASE_URL = "http://gank.io/api/";
+    public static final int DEFAULT_TIMEOUT = 5000;
 
     public static final String DATA_TYPE_WELFARE = "福利";
     public static final String DATA_TYPE_ANDROID = "Android";

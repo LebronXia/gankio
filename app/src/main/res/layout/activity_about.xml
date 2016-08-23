@@ -35,7 +35,7 @@
                     android:layout_height="256dp"
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_bg"
+                    android:src="@mipmap/bg_slide_menu_header"
                     />
             </FrameLayout>
 

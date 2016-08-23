@@ -58,11 +58,10 @@ public class CategoryPresent extends BasePresenter<CategoryView>{
                     // List<GankDataBean> gankDataBeanList = realm.where(GankDataBean.class).findAll();
                     RealmResults<GankDataBean> realmResults = null;
                     if (mType.equals("ALL")){
-                        Logger.d(mType + "~~");
                         realmResults = realm.where(GankDataBean.class)
                                 .equalTo("isAll", true).findAll();
                     } else {
-                        Logger.d(mType + "~~");
+
                         realmResults = realm.where(GankDataBean.class)
                                 .equalTo("type", mType)
                                 .equalTo("isAll", false).findAll();

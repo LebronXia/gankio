@@ -5,6 +5,7 @@ import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.xiaobozheng.gankio.Constant.Constant;
 import com.xiaobozheng.gankio.data.model.CategoryData;
 import com.xiaobozheng.gankio.data.model.GankDaily;
 import com.xiaobozheng.gankio.data.model.GankDataBean;
@@ -29,7 +30,7 @@ import rx.schedulers.Schedulers;
  */
 public class ApiManager {
     private static final String BASE_URL = "http://gank.io/api/";
-    private static final int DEFAULT_TIMEOUT = 50;
+
 
     private GankApiManagerService mGankApiManagerService;
     private Retrofit retrofit;
@@ -50,7 +51,7 @@ public class ApiManager {
     private ApiManager(){
         //手动创建一个OkHttpClient并设置超时时间
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
-        httpClientBuilder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        httpClientBuilder.connectTimeout(Constant.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
 
         retrofit = new Retrofit.Builder()
                 .client(httpClientBuilder.build())
