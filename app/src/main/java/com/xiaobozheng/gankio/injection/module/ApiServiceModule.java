@@ -5,7 +5,9 @@ import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xiaobozheng.gankio.Constant.Constant;
+import com.xiaobozheng.gankio.data.API.ApiManager;
 import com.xiaobozheng.gankio.data.API.GankApiManagerService;
+import com.xiaobozheng.gankio.mvp.model.impl.RecycentModel;
 
 import java.util.concurrent.TimeUnit;
 
@@ -75,5 +77,17 @@ public class ApiServiceModule {
     @Singleton
     GankApiManagerService provideApiService(Retrofit retrofit){
         return retrofit.create(GankApiManagerService.class);
+    }
+
+    @Provides
+    @Singleton
+    ApiManager providerApiManager(GankApiManagerService gankApiManagerService){
+        return new ApiManager(gankApiManagerService);
+    }
+
+    @Provides
+    @Singleton
+    RecycentModel provideREcycentModel(ApiManager apiManager){
+        return new RecycentModel(apiManager);
     }
 }

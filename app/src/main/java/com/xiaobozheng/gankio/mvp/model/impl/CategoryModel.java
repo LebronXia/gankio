@@ -15,6 +15,12 @@ import rx.Subscriber;
  * Created by xiaobozheng on 7/25/2016.
  */
 public class CategoryModel implements ICategoryModel{
+
+    private ApiManager mApiManager;
+
+    private CategoryModel(ApiManager apiManager){
+        this.mApiManager = apiManager;
+    }
     //获取类型
     @Override
     public List<String> getCategory() {
@@ -27,6 +33,6 @@ public class CategoryModel implements ICategoryModel{
 
     @Override
     public void getCategotyData(Subscriber subscriber, String type, int size, int page) {
-        ApiManager.getInstance().getCategoryData(subscriber, type, size, page);
+        mApiManager.getCategoryData(subscriber, type, size, page);
     }
 }

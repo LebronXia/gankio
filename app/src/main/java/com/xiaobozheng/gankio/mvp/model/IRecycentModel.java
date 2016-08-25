@@ -4,6 +4,7 @@ import com.xiaobozheng.gankio.data.model.GankDataBean;
 import com.xiaobozheng.gankio.data.model.RecentlyBean;
 import com.xiaobozheng.gankio.mvp.model.impl.RecycentModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
@@ -20,7 +21,7 @@ public interface IRecycentModel {
      * @param month
      * @param day
      */
-    void getRecentlyData(Subscriber subscriber, int year, int month, int day);
+    void getRecentlyData(Subscriber<ArrayList<ArrayList<GankDataBean>>> subscriber, int year, int month, int day);
 
     /**
      * 回调接口

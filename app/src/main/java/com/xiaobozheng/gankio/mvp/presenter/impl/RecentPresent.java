@@ -5,6 +5,7 @@ import com.xiaobozheng.gankio.data.model.GankDataBean;
 import com.xiaobozheng.gankio.mvp.model.impl.RecycentModel;
 import com.xiaobozheng.gankio.mvp.presenter.BasePresenter;
 import com.xiaobozheng.gankio.mvp.view.Impl.RecentView;
+import com.xiaobozheng.gankio.ui.fragment.NewDetailFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,11 +18,13 @@ import rx.Subscriber;
 public class RecentPresent extends BasePresenter<RecentView>{
     private static final int DAY_OF_MILLISECOND = 24*60*60*1000;
     private RecycentModel mRecycentModel;
-    private RecentView mRecentView;
+    //private RecentView mRecentView;
+    private NewDetailFragment mNewDetailFragment;
 
-    public RecentPresent(RecentView view){
+    public RecentPresent(NewDetailFragment view,
+                         RecycentModel recycentModel){
         attachView(view);
-        mRecycentModel = new RecycentModel();
+        mRecycentModel = recycentModel;
     }
 
     /**

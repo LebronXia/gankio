@@ -5,6 +5,7 @@ import android.app.Application;
 import com.xiaobozheng.gankio.data.API.GankApiManagerService;
 import com.xiaobozheng.gankio.injection.module.ApiServiceModule;
 import com.xiaobozheng.gankio.injection.module.AppModule;
+import com.xiaobozheng.gankio.injection.module.NewDetailFragmentModule;
 
 import javax.inject.Singleton;
 
@@ -20,5 +21,7 @@ public interface AppComponent {
     Application getApplication();
 
     GankApiManagerService getService();
+
+    NewDetailFragmentCompont plus(NewDetailFragmentModule module);
 
 }

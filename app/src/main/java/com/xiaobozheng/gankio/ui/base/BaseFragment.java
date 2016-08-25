@@ -64,6 +64,7 @@ public abstract class BaseFragment extends Fragment {
         this.initViews(this.self, savedInstanceState);
         this.initData();
         this.initListeners();
+        setupFragmentComponent();
         return this.self;
     }
 
@@ -73,6 +74,8 @@ public abstract class BaseFragment extends Fragment {
         realm.close();
         ButterKnife.unbind(this);
     }
+
+    protected abstract void setupFragmentComponent();
 
     /**
      * Fill in layout id

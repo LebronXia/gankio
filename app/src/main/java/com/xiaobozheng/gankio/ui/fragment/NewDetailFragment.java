@@ -8,7 +8,9 @@ import com.camnter.easyrecyclerview.widget.EasyRecyclerView;
 import com.camnter.easyrecyclerview.widget.decorator.EasyBorderDividerItemDecoration;
 import com.umeng.analytics.MobclickAgent;
 import com.xiaobozheng.gankio.R;
+import com.xiaobozheng.gankio.app.MyApplication;
 import com.xiaobozheng.gankio.data.model.GankDataBean;
+import com.xiaobozheng.gankio.injection.module.NewDetailFragmentModule;
 import com.xiaobozheng.gankio.mvp.presenter.impl.RecentPresent;
 import com.xiaobozheng.gankio.mvp.view.Impl.RecentView;
 import com.xiaobozheng.gankio.ui.activity.PictureActivity;
@@ -18,6 +20,8 @@ import com.xiaobozheng.gankio.ui.base.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.Date;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 
@@ -29,10 +33,11 @@ public class NewDetailFragment extends BaseFragment implements RecentView{
     @Bind(R.id.rv_new_detail)
     EasyRecyclerView dailydetailRv;
     private DailyDetailAdapter detailAdapter;
-    private RecentPresent mRecentPresent;
     private int mYear, mMonth, mDay;
-   // private ArrayList<ArrayList<GankDataBean>> mGankList;
     public Context context;
+
+    @Inject
+    private RecentPresent mRecentPresent;
 
     @Override
     protected int getLayoutId() {
@@ -41,7 +46,7 @@ public class NewDetailFragment extends BaseFragment implements RecentView{
 
     @Override
     protected void initViews(View self, Bundle savedInstanceState) {
-        this.mRecentPresent = new RecentPresent(this);
+       // this.mRecentPresent = new RecentPresent(this);
         this.context = getActivity();
        // mGankList = new ArrayList<ArrayList<GankDataBean>>();
         //初始化分段线
@@ -65,6 +70,14 @@ public class NewDetailFragment extends BaseFragment implements RecentView{
         });
 
         this.dailydetailRv.setAdapter(detailAdapter);
+    }
+
+    @Override
+    protected void setupFragmentComponent() {
+        //将present构造函数注入到里面
+        MyApplication.get(context).getAppComponent()
+                .plus(new NewDetailFragmentModule(this))
+                .inject(this);
     }
 
     @Override

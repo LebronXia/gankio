@@ -17,11 +17,13 @@ import rx.schedulers.Schedulers;
  */
 public class RecycentModel implements IRecycentModel {
 
-    public RecycentModel(){
+    private ApiManager mApiManager;
+    public RecycentModel(ApiManager apiManager){
+        this.mApiManager = apiManager;
     }
 
     @Override
     public void getRecentlyData(Subscriber subscriber,int year, int month, int day) {
-        ApiManager.getInstance().getRecentlyData(subscriber, year, month, day);
+        mApiManager.getRecentlyData(subscriber, year, month, day);
     }
 }

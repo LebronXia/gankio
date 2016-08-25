@@ -32,46 +32,48 @@ public class ApiManager {
     private static final String BASE_URL = "http://gank.io/api/";
 
 
-    private GankApiManagerService mGankApiManagerService;
-    private Retrofit retrofit;
+    private final GankApiManagerService mGankApiManagerService;
+    //private Retrofit retrofit;
 
-    Gson gson = new GsonBuilder()
-            .setExclusionStrategies(new ExclusionStrategy() {
-                @Override
-                public boolean shouldSkipField(FieldAttributes f) {
-                    return f.getDeclaringClass().equals(RealmObject.class);
-                }
+//    Gson gson = new GsonBuilder()
+//            .setExclusionStrategies(new ExclusionStrategy() {
+//                @Override
+//                public boolean shouldSkipField(FieldAttributes f) {
+//                    return f.getDeclaringClass().equals(RealmObject.class);
+//                }
+//
+//                @Override
+//                public boolean shouldSkipClass(Class<?> clazz) {
+//                    return false;
+//                }
+//            }).create();
 
-                @Override
-                public boolean shouldSkipClass(Class<?> clazz) {
-                    return false;
-                }
-            }).create();
+//    private ApiManager(){
+//        //手动创建一个OkHttpClient并设置超时时间
+//        OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
+//        httpClientBuilder.connectTimeout(Constant.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+//
+//        retrofit = new Retrofit.Builder()
+//                .client(httpClientBuilder.build())
+//                .addConverterFactory(GsonConverterFactory.create(gson))
+//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+//                .baseUrl(BASE_URL)
+//                .build();
+//
+//        mGankApiManagerService = retrofit.create(GankApiManagerService.class);
+//    }
 
-    private ApiManager(){
-        //手动创建一个OkHttpClient并设置超时时间
-        OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
-        httpClientBuilder.connectTimeout(Constant.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
-
-        retrofit = new Retrofit.Builder()
-                .client(httpClientBuilder.build())
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(BASE_URL)
-                .build();
-
-        mGankApiManagerService = retrofit.create(GankApiManagerService.class);
+    public ApiManager(GankApiManagerService gankApiManagerService){
+        this.mGankApiManagerService = gankApiManagerService;
     }
 
-
-
-    private static class SingletonHolder{
-        private static final ApiManager INSTANCE = new ApiManager();
-    }
-
-    public static ApiManager getInstance(){
-        return SingletonHolder.INSTANCE;
-    }
+//    private static class SingletonHolder{
+//        private static final ApiManager INSTANCE = new ApiManager();
+//    }
+//
+//    public static ApiManager getInstance(){
+//        return SingletonHolder.INSTANCE;
+//    }
 
     /**
      * //获取最近一天的数据
