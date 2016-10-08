@@ -75,9 +75,9 @@ public class NewDetailFragment extends BaseFragment implements RecentView{
     @Override
     protected void setupFragmentComponent() {
         //将present构造函数注入到里面
-        MyApplication.get(context).getAppComponent()
-                .plus(new NewDetailFragmentModule(this))
-                .inject(this);
+//        MyApplication.get(context).getAppComponent()
+//                .plus(new NewDetailFragmentModule(this))
+//                .inject(this);
     }
 
     @Override

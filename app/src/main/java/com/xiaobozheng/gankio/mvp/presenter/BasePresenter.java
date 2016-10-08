@@ -2,8 +2,6 @@ package com.xiaobozheng.gankio.mvp.presenter;
 
 import android.view.View;
 
-import com.google.common.eventbus.Subscribe;
-
 import rx.Subscriber;
 import rx.subscriptions.CompositeSubscription;
 

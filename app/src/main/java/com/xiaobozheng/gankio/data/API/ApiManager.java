@@ -1,6 +1,5 @@
 package com.xiaobozheng.gankio.data.API;
 
-import com.google.common.eventbus.Subscribe;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
