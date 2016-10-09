@@ -18,9 +18,6 @@ public class CategoryModel implements ICategoryModel{
 
     private ApiManager mApiManager;
 
-    private CategoryModel(ApiManager apiManager){
-        this.mApiManager = apiManager;
-    }
     //获取类型
     @Override
     public List<String> getCategory() {

@@ -34,10 +34,6 @@ public class MyApplication extends Application {
                 .appModule(new AppModule(this))
                 .apiServiceModule(new ApiServiceModule(Constant.BASE_URL))
                 .build();
-//        appComponent = Dagger.builder()
-//                .appModule(new AppModule(this))
-//                .apiServiceModule(new ApiServiceModule(Constant.BASE_URL))
-//                .build();
 
         // The realm file will be located in Context.getFilesDir() with name "default.realm"
 //        RealmConfiguration configuration = new RealmConfiguration.Builder(this).build();

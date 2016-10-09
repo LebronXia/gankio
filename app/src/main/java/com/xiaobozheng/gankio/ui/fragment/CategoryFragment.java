@@ -100,4 +100,9 @@ public class CategoryFragment extends BaseFragment implements CategoryView{
         super.onPause();
         MobclickAgent.onPageEnd("MainScreen");
     }
+
+    @Override
+    protected void setupFragmentComponent() {
+
+    }
 }

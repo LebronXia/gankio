@@ -86,6 +86,11 @@ public class CategoryListFragment extends BaseFragment implements CategoryView ,
     }
 
     @Override
+    protected void setupFragmentComponent() {
+
+    }
+
+    @Override
     protected void initListeners() {
 
         if (mSwipeRefreshLayout != null){

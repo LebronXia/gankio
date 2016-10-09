@@ -59,7 +59,6 @@ public abstract class BaseFragment extends Fragment {
             ViewGroup parent = (ViewGroup) this.self.getParent();
             parent.removeView(this.self);
         }
-        realm = Realm.getDefaultInstance();
         ButterKnife.bind(this,this.self);
         this.initViews(this.self, savedInstanceState);
         this.initData();

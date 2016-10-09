@@ -22,6 +22,6 @@ public interface AppComponent {
 
     GankApiManagerService getService();
 
-   // NewDetailFragmentComponent plus(NewDetailFragmentModule module);
+    NewDetailFragmentComponent plus(NewDetailFragmentModule module);
 
 }

@@ -38,4 +38,9 @@ public class DailyDetailFragment extends BaseFragment{
         super.onPause();
         MobclickAgent.onPageEnd("MainScreen");
     }
+
+    @Override
+    protected void setupFragmentComponent() {
+
+    }
 }
