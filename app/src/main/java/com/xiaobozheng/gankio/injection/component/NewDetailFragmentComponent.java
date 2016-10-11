@@ -17,5 +17,5 @@ public interface NewDetailFragmentComponent {
 
     NewDetailFragment inject(NewDetailFragment newDetailFragment);
 
-    RecentPresent presenter();
+  //  RecentPresent presenter();
 }

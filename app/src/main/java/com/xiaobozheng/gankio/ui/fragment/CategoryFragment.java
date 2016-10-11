@@ -9,13 +9,19 @@ import android.view.View;
 import com.orhanobut.logger.Logger;
 import com.umeng.analytics.MobclickAgent;
 import com.xiaobozheng.gankio.R;
+import com.xiaobozheng.gankio.app.MyApplication;
 import com.xiaobozheng.gankio.data.model.GankDataBean;
+import com.xiaobozheng.gankio.injection.module.CategoryFragmentModule;
+import com.xiaobozheng.gankio.injection.module.NewDetailFragmentModule;
+import com.xiaobozheng.gankio.mvp.model.impl.CategoryModel;
 import com.xiaobozheng.gankio.mvp.presenter.impl.CategoryPresent;
 import com.xiaobozheng.gankio.mvp.view.Impl.CategoryView;
 import com.xiaobozheng.gankio.ui.adapter.CategoryPageAdapter;
 import com.xiaobozheng.gankio.ui.base.BaseFragment;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import io.realm.Realm;
@@ -40,8 +46,9 @@ public class CategoryFragment extends BaseFragment implements CategoryView{
 
     @Override
     protected void initViews(View self, Bundle savedInstanceState) {
-        Realm realm = Realm.getDefaultInstance();
-        this.mCategoryPresent = new CategoryPresent(this);
+        //this.mCategoryPresent = new CategoryPresent(this);
+        CategoryModel mCategoryModel = new CategoryModel();
+        mCategoryPresent = new CategoryPresent(this, mCategoryModel);
         this.context = getActivity();
 
     }

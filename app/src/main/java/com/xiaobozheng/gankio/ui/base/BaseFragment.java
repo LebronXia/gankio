@@ -60,10 +60,10 @@ public abstract class BaseFragment extends Fragment {
             parent.removeView(this.self);
         }
         ButterKnife.bind(this,this.self);
+        setupFragmentComponent();
         this.initViews(this.self, savedInstanceState);
         this.initData();
         this.initListeners();
-        setupFragmentComponent();
         return this.self;
     }
 

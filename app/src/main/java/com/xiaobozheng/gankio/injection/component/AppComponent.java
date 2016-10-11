@@ -5,7 +5,9 @@ import android.app.Application;
 import com.xiaobozheng.gankio.data.API.GankApiManagerService;
 import com.xiaobozheng.gankio.injection.module.ApiServiceModule;
 import com.xiaobozheng.gankio.injection.module.AppModule;
+import com.xiaobozheng.gankio.injection.module.CategoryFragmentModule;
 import com.xiaobozheng.gankio.injection.module.NewDetailFragmentModule;
+import com.xiaobozheng.gankio.ui.fragment.CategoryFragment;
 
 import javax.inject.Singleton;
 
@@ -18,10 +20,8 @@ import dagger.Component;
 @Component(modules = {AppModule.class, ApiServiceModule.class})
 public interface AppComponent {
 
-    Application getApplication();
-
-    GankApiManagerService getService();
-
     NewDetailFragmentComponent plus(NewDetailFragmentModule module);
+
+    CategoryFragmentComponent plus(CategoryFragmentModule module);
 
 }

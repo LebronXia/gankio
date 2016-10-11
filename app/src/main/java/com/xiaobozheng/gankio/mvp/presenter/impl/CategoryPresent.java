@@ -28,11 +28,9 @@ public class CategoryPresent extends BasePresenter<CategoryView>{
     private CategoryModel mCategoryModel;
     private Realm realm;
 
-    public CategoryPresent(CategoryView view){
+    public CategoryPresent(CategoryView view, CategoryModel categoryModel){
         attachView(view);
-        mCategoryModel = new CategoryModel();
-        realm = Realm.getDefaultInstance();
-
+        mCategoryModel = categoryModel;
     }
 
     //获取类型数据
@@ -82,19 +80,19 @@ public class CategoryPresent extends BasePresenter<CategoryView>{
                     CategoryPresent.this.getMvpView().showCategoyData(gankDataBeanList);
                     Logger.d(gankDataBeanList.get(0).getDesc());
 
-                    for (GankDataBean gankDataBean : gankDataBeanList){
-                       // GankDataBean gankData = realm.createObject(GankDataBean.class);
-
-                        if (mType.equals("ALL")){
-                            gankDataBean.setAll(true);
-                        }
-                        if (realm.isInTransaction()){
-                            realm.commitTransaction();
-                        }
-                        realm.beginTransaction();
-                        realm.copyToRealmOrUpdate(gankDataBean);
-                        realm.commitTransaction();
-                    }
+//                    for (GankDataBean gankDataBean : gankDataBeanList){
+//                       // GankDataBean gankData = realm.createObject(GankDataBean.class);
+//
+//                        if (mType.equals("ALL")){
+//                            gankDataBean.setAll(true);
+//                        }
+//                        if (realm.isInTransaction()){
+//                            realm.commitTransaction();
+//                        }
+//                        realm.beginTransaction();
+//                        realm.copyToRealmOrUpdate(gankDataBean);
+//                        realm.commitTransaction();
+//                    }
                 }
             }
         };

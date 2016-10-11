@@ -27,7 +27,7 @@ public class NewDetailFragmentModule {
 
     @Provides
     @FragmentScope
-    RecentPresent provideRecentPresent(RecycentModel recycentModel){
+    RecentPresent provideRecentPresent(NewDetailFragment mNewDetailFragment, RecycentModel recycentModel){
         return new RecentPresent(mNewDetailFragment, recycentModel);
     }
 

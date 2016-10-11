@@ -18,7 +18,10 @@ import com.orhanobut.logger.Logger;
 import com.umeng.analytics.MobclickAgent;
 import com.xiaobozheng.gankio.Constant.Constant;
 import com.xiaobozheng.gankio.R;
+import com.xiaobozheng.gankio.app.MyApplication;
 import com.xiaobozheng.gankio.data.model.GankDataBean;
+import com.xiaobozheng.gankio.injection.module.CategoryFragmentModule;
+import com.xiaobozheng.gankio.mvp.model.impl.CategoryModel;
 import com.xiaobozheng.gankio.mvp.presenter.impl.CategoryPresent;
 import com.xiaobozheng.gankio.mvp.view.Impl.CategoryView;
 import com.xiaobozheng.gankio.ui.activity.PictureActivity;
@@ -30,6 +33,8 @@ import com.xiaobozheng.gankio.util.GankTypeDict;
 import com.xiaobozheng.gankio.widget.MultiSwipeRefreshLayout;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import io.realm.Realm;
@@ -55,7 +60,9 @@ public class CategoryListFragment extends BaseFragment implements CategoryView ,
     private boolean canLoadingMore = false;
     List<GankDataBean> mGankDataBeanList;
     private String mType;
-    private CategoryPresent mCategoryPresent;
+   // private CategoryPresent mCategoryPresent;
+    @Inject
+    CategoryPresent mCategoryPresent;
 
     @Override
     protected int getLayoutId() {
@@ -64,7 +71,7 @@ public class CategoryListFragment extends BaseFragment implements CategoryView ,
 
     @Override
     protected void initViews(View self, Bundle savedInstanceState) {
-        mCategoryPresent = new CategoryPresent(this);
+
 
         mCategoryListAdapter = new CategoryListAdapter(getActivity());
         mEasyRecyclerView.setAdapter(mCategoryListAdapter);
@@ -87,7 +94,10 @@ public class CategoryListFragment extends BaseFragment implements CategoryView ,
 
     @Override
     protected void setupFragmentComponent() {
-
+        ((MyApplication)getActivity().getApplication())
+                .getAppComponent()
+                .plus(new CategoryFragmentModule(this))
+                .inject(this);
     }
 
     @Override
@@ -102,16 +112,16 @@ public class CategoryListFragment extends BaseFragment implements CategoryView ,
                 @Override
                 public void onRefresh() {
                     mCurrentPage = 1;
-                    if (realm.isInTransaction()){
-                        realm.commitTransaction();
-                    }
-                    realm.executeTransaction(new Realm.Transaction(){
-                        @Override
-                        public void execute(Realm realm) {
-                            RealmResults<GankDataBean>results = realm.where(GankDataBean.class).equalTo("type", mType).findAll();
-                            results.clear();
-                        }
-                    });
+//                    if (realm.isInTransaction()){
+//                        realm.commitTransaction();
+//                    }
+//                    realm.executeTransaction(new Realm.Transaction(){
+//                        @Override
+//                        public void execute(Realm realm) {
+//                            RealmResults<GankDataBean>results = realm.where(GankDataBean.class).equalTo("type", mType).findAll();
+//                            results.clear();
+//                        }
+//                    });
                     mCategoryPresent.getCategoryData(mType, mCurrentPage, true);
                 }
             });

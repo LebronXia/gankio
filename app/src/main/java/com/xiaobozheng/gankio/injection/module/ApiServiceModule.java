@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 import com.xiaobozheng.gankio.Constant.Constant;
 import com.xiaobozheng.gankio.data.API.ApiManager;
 import com.xiaobozheng.gankio.data.API.GankApiManagerService;
+import com.xiaobozheng.gankio.mvp.model.impl.CategoryModel;
 import com.xiaobozheng.gankio.mvp.model.impl.RecycentModel;
 
 import java.util.concurrent.TimeUnit;
@@ -89,5 +90,11 @@ public class ApiServiceModule {
     @Singleton
     RecycentModel provideREcycentModel(ApiManager apiManager){
         return new RecycentModel(apiManager);
+    }
+
+    @Provides
+    @Singleton
+    CategoryModel providerCategoryModel(ApiManager apiManager){
+        return new CategoryModel(apiManager);
     }
 }
