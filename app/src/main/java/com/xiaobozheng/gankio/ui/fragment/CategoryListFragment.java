@@ -41,6 +41,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 /**
+ * 分类列表子视图
  * Created by xiaobozheng on 7/25/2016.
  */
 public class CategoryListFragment extends BaseFragment implements CategoryView , CategoryListAdapter.OnGankClickListener{
@@ -55,6 +56,7 @@ public class CategoryListFragment extends BaseFragment implements CategoryView ,
     private LinearLayoutManager mLinearLayoutManager;
     private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
     private CategoryListAdapter mCategoryListAdapter;
+    private boolean isViewCreated;
     public int mCurrentPage = 1;
     /** * 是否能添加更多 */
     private boolean canLoadingMore = false;
@@ -89,6 +91,7 @@ public class CategoryListFragment extends BaseFragment implements CategoryView ,
         this.mLinearLayoutManager = new LinearLayoutManager(getActivity());
         //瀑布流的管理器
         this.mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        isViewCreated = true;
 
     }
 
@@ -211,17 +214,24 @@ public class CategoryListFragment extends BaseFragment implements CategoryView ,
             case Constant.DATA_TYPE_WELFARE:
                 this.clearDecoration();
                 this.mEasyRecyclerView.setLayoutManager(this.mStaggeredGridLayoutManager);
-                this.mEasyRecyclerView.addItemDecoration(this.welfareDecoration);
+             //   this.mEasyRecyclerView.addItemDecoration(this.welfareDecoration);
                 break;
-            default:
+            case Constant.DATA_TYPE_ANDROID:
+            case Constant.DATA_TYPE_IOS:
+            case Constant.DATA_TYPE_REST_VIDEO:
+            case Constant.DATA_TYPE_EXTEND_RESOURCES:
+            case Constant.DATA_TYPE_JS:
+            case Constant.DATA_TYPE_APP:
+            case Constant.DATA_TYPE_RECOMMEND:
+            case Constant.DATA_TYPE_ALL:
                 this.clearDecoration();
                 this.mEasyRecyclerView.setLayoutManager(this.mLinearLayoutManager);
-                this.mEasyRecyclerView.addItemDecoration(this.dataDecoration);
+              //  this.mEasyRecyclerView.addItemDecoration(this.dataDecoration);
                 break;
         }
+
         //在下拉刷新的时候加上true，防止上拉加载的时候没网重复添加数据
         mCategoryPresent.getCategoryData(mType, mCurrentPage, true);
-
     }
 
     private void clearDecoration(){

@@ -1,5 +1,8 @@
 package com.xiaobozheng.gankio.Constant;
 
+import com.xiaobozheng.gankio.util.AppUtils;
+import com.xiaobozheng.gankio.util.FileUtils;
+
 /**
  * Description：GankApi - http://gank.io/api
  * <p>
@@ -41,4 +44,7 @@ public class Constant {
 
     public static final int DEFAULT_DATA_SIZE = 10;
     public static final int DEFAULT_DAILY_SIZE = 15;
+
+    public static String PATH_DATA = FileUtils.createRootPath(AppUtils.getAppContext()) + "/cache";
+    public static String BASE_PATH = FileUtils.createRootPath(AppUtils.getAppContext()) + "/book/";
 }

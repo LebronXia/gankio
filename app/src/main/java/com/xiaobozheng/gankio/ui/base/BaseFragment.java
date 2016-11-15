@@ -44,10 +44,11 @@ import io.realm.Realm;
  * Created by：CaMnter
  * Time：2016-01-02 21:35
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class  BaseFragment extends Fragment {
 
     protected View self;
     protected Realm realm;
+    private int limit = 20;
 
     @Nullable @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

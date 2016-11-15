@@ -27,6 +27,7 @@ import butterknife.Bind;
 import io.realm.Realm;
 
 /**
+ * 分类列表父视图
  * Created by xiaobozheng on 7/25/2016.
  */
 public class CategoryFragment extends BaseFragment implements CategoryView{

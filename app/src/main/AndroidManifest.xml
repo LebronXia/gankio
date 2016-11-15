@@ -50,6 +50,7 @@
         <activity android:name=".ui.activity.AboutActivity"
                   android:screenOrientation="portrait"
             />
+
         <meta-data android:value="57ac93bde0f55ab41e005d3e" android:name="UMENG_APPKEY"></meta-data>
 
         <meta-data android:name="UMENG_CHANNEL" android:value="${UMENG_CHANNEL_VALUE}"/>

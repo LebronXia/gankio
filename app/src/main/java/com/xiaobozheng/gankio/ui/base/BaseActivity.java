@@ -46,7 +46,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         MobclickAgent.setDebugMode( true );
         initData();
         initView();
-
     }
 
 

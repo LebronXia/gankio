@@ -14,6 +14,8 @@
         <item name="color">@android:color/white</item>
     </style>
 
+    <style name="AppThemeprice" parent="Theme.AppCompat.Light.DarkActionBar"></style>
+
     <!-- 加载滚动条样式 -->
     <style name="loading">
         <item name="android:indeterminate">true</item>

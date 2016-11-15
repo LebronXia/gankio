@@ -42,8 +42,6 @@ public class CategoryPageAdapter extends FragmentPagerAdapter{
             fragment = ViewUtils.createFragment(CategoryListFragment.class, false);
             Bundle bundle = new Bundle();
             bundle.putString(BUNDLE_TYPE, titles.get(position));
-           // Logger.d("position" + position);
-           // Logger.d(titles.get(position) + "在CategoryPageAdapter里的mType");
             fragment.setArguments(bundle);
         } else {
             fragment = ViewUtils.createFragment(CategoryListFragment.class, false);

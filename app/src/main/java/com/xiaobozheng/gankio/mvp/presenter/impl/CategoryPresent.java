@@ -12,12 +12,14 @@ import com.xiaobozheng.gankio.mvp.model.impl.RecycentModel;
 import com.xiaobozheng.gankio.mvp.presenter.BasePresenter;
 import com.xiaobozheng.gankio.mvp.view.Impl.CategoryView;
 import com.xiaobozheng.gankio.mvp.view.Impl.RecentView;
+import com.xiaobozheng.gankio.util.Stringutils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import rx.Observable;
 import rx.Subscriber;
 
 /**
@@ -41,6 +43,10 @@ public class CategoryPresent extends BasePresenter<CategoryView>{
     //获取分类的各个数据
     public void getCategoryData(String mType, int page, boolean refresh){
         CategoryPresent.this.getMvpView().showLoading();
+
+        String key = Stringutils.creatAcacheKey("gank-sort-data",mType, page);
+      //  Observable<>
+
         Subscriber<List<GankDataBean>> subscriber = new Subscriber<List<GankDataBean>>() {
             @Override
             public void onCompleted() {
@@ -79,20 +85,6 @@ public class CategoryPresent extends BasePresenter<CategoryView>{
                 if (gankDataBeanList != null){
                     CategoryPresent.this.getMvpView().showCategoyData(gankDataBeanList);
                     Logger.d(gankDataBeanList.get(0).getDesc());
-
-//                    for (GankDataBean gankDataBean : gankDataBeanList){
-//                       // GankDataBean gankData = realm.createObject(GankDataBean.class);
-//
-//                        if (mType.equals("ALL")){
-//                            gankDataBean.setAll(true);
-//                        }
-//                        if (realm.isInTransaction()){
-//                            realm.commitTransaction();
-//                        }
-//                        realm.beginTransaction();
-//                        realm.copyToRealmOrUpdate(gankDataBean);
-//                        realm.commitTransaction();
-//                    }
                 }
             }
         };

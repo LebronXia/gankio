@@ -24,7 +24,7 @@ public class AboutActivity extends BaseActivity{
 
     @Override
     protected void initView() {
-        mCollapsingToolbarLayout.setTitle("关于gankio");
+        mCollapsingToolbarLayout.setTitle("关于Gank");
     }
 
     @Override
