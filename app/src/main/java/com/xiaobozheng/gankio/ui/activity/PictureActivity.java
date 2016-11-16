@@ -21,6 +21,7 @@ import com.xiaobozheng.gankio.ui.base.BaseActivity;
 import com.xiaobozheng.gankio.util.GlideUtils;
 import com.xiaobozheng.gankio.util.Shares;
 import com.xiaobozheng.gankio.util.Support;
+import com.xiaobozheng.gankio.util.ToastUtils;
 
 import java.io.File;
 
@@ -128,7 +129,7 @@ public class PictureActivity extends BaseActivity{
                         String msg = String.format(getString(R.string.picture_has_save_to),
                                 appDir.getAbsolutePath());
                         showToast(msg);
-                    }, error -> showToast(error.getMessage() + "\n再试试~"));
+                    }, error ->showToast(error.getMessage() + "\n再试试~"));
         }else{
             Snackbar.make(mImageView, "图片还没加载成功", Snackbar.LENGTH_LONG).show();
         }

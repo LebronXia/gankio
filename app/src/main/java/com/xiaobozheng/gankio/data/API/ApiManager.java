@@ -8,6 +8,8 @@ import com.xiaobozheng.gankio.Constant.Constant;
 import com.xiaobozheng.gankio.data.model.CategoryData;
 import com.xiaobozheng.gankio.data.model.GankDaily;
 import com.xiaobozheng.gankio.data.model.GankDataBean;
+import com.xiaobozheng.gankio.util.RxUtil;
+import com.xiaobozheng.gankio.util.Stringutils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
@@ -100,10 +103,17 @@ public class ApiManager {
      * @param page
      */
     public void getCategoryData(Subscriber<List<GankDataBean>> subscriber, String type, int size, int page){
-        mGankApiManagerService.getCategoryData(type, size, page)
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .map(CategoryData -> CategoryData.results)
+        String key = Stringutils.creatAcacheKey("gank-sort-data",type, page);
+        Observable<CategoryData> fromNetWork = mGankApiManagerService.getCategoryData(type, size, page)
+               .compose(RxUtil.<CategoryData>rxCacheListHelper(key));   //s加一步操作将数据加进缓存中
+//                .subscribeOn(Schedulers.io())
+//                .unsubscribeOn(Schedulers.io())
+//                .map(CategoryData -> CategoryData.results)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(subscriber);
+        
+        //依次检查disk、network
+        Observable.concat(RxUtil.rxCreateDiskObservable(key, CategoryData.class), fromNetWork)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }

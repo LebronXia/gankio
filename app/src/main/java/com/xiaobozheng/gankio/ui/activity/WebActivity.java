@@ -20,6 +20,7 @@ import com.xiaobozheng.gankio.R;
 import com.xiaobozheng.gankio.ui.base.BaseActivity;
 import com.xiaobozheng.gankio.util.Shares;
 import com.xiaobozheng.gankio.util.Support;
+import com.xiaobozheng.gankio.util.ToastUtils;
 
 import butterknife.Bind;
 

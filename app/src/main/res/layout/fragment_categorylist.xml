@@ -15,7 +15,8 @@
     <com.camnter.easyrecyclerview.widget.EasyRecyclerView
         android:id="@+id/rv_category"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        />
 
     </com.xiaobozheng.gankio.widget.MultiSwipeRefreshLayout>
 

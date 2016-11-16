@@ -106,33 +106,33 @@ public abstract class  BaseFragment extends Fragment {
      * Toast *
      *********/
 
-    public void showToast(String msg) {
-        this.showToast(msg, Toast.LENGTH_SHORT);
-    }
+//    public void showToast(String msg) {
+//        this.showToast(msg, Toast.LENGTH_SHORT);
+//    }
 
 
-    public void showToast(String msg, int duration) {
-        if (msg == null) return;
-        if (duration == Toast.LENGTH_SHORT || duration == Toast.LENGTH_LONG) {
-            ToastUtils.show(this.getActivity(), msg, duration);
-        } else {
-            ToastUtils.show(this.getActivity(), msg, ToastUtils.LENGTH_SHORT);
-        }
-    }
-
-
-    public void showToast(int resId) {
-        this.showToast(resId, Toast.LENGTH_SHORT);
-    }
-
-
-    public void showToast(int resId, int duration) {
-        if (duration == Toast.LENGTH_SHORT || duration == Toast.LENGTH_LONG) {
-            ToastUtils.show(this.getActivity(), resId, duration);
-        } else {
-            ToastUtils.show(this.getActivity(), resId, ToastUtils.LENGTH_SHORT);
-        }
-    }
+//    public void showToast(String msg, int duration) {
+//        if (msg == null) return;
+//        if (duration == Toast.LENGTH_SHORT || duration == Toast.LENGTH_LONG) {
+//            ToastUtils.show(this.getActivity(), msg, duration);
+//        } else {
+//            ToastUtils.show(this.getActivity(), msg, ToastUtils.LENGTH_SHORT);
+//        }
+//    }
+//
+//
+//    public void showToast(int resId) {
+//        this.showToast(resId, Toast.LENGTH_SHORT);
+//    }
+//
+//
+//    public void showToast(int resId, int duration) {
+//        if (duration == Toast.LENGTH_SHORT || duration == Toast.LENGTH_LONG) {
+//            ToastUtils.show(this.getActivity(), resId, duration);
+//        } else {
+//            ToastUtils.show(this.getActivity(), resId, ToastUtils.LENGTH_SHORT);
+//        }
+//    }
 
    // public abstract void onScrollStateChanged(RecyclerView recyclerView, int newState);
 

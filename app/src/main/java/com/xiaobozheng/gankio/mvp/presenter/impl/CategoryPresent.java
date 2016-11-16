@@ -1,6 +1,7 @@
 package com.xiaobozheng.gankio.mvp.presenter.impl;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.bumptech.glide.util.FixedPreloadSizeProvider;
 import com.orhanobut.logger.Logger;
@@ -13,6 +14,7 @@ import com.xiaobozheng.gankio.mvp.presenter.BasePresenter;
 import com.xiaobozheng.gankio.mvp.view.Impl.CategoryView;
 import com.xiaobozheng.gankio.mvp.view.Impl.RecentView;
 import com.xiaobozheng.gankio.util.Stringutils;
+import com.xiaobozheng.gankio.util.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,10 +46,9 @@ public class CategoryPresent extends BasePresenter<CategoryView>{
     public void getCategoryData(String mType, int page, boolean refresh){
         CategoryPresent.this.getMvpView().showLoading();
 
-        String key = Stringutils.creatAcacheKey("gank-sort-data",mType, page);
-      //  Observable<>
+        //Observable<List<GankDataBean>> fromNetWork =
 
-        Subscriber<List<GankDataBean>> subscriber = new Subscriber<List<GankDataBean>>() {
+        Subscriber<CategoryData> subscriber = new Subscriber<CategoryData>() {
             @Override
             public void onCompleted() {
                 CategoryPresent.this.getMvpView().hideLoading();
@@ -80,11 +81,13 @@ public class CategoryPresent extends BasePresenter<CategoryView>{
             }
 
             @Override
-            public void onNext(List<GankDataBean> gankDataBeanList) {
+            public void onNext(CategoryData mCategoryData) {
                 CategoryPresent.this.getMvpView().hideLoading();
-                if (gankDataBeanList != null){
-                    CategoryPresent.this.getMvpView().showCategoyData(gankDataBeanList);
-                    Logger.d(gankDataBeanList.get(0).getDesc());
+                if (mCategoryData.results != null && mCategoryData.results.size() > 0){
+                    CategoryPresent.this.getMvpView().showCategoyData(mCategoryData.results);
+                   // Logger.d(mCategoryData.results.get(0).getDesc());
+                } else {
+                    showToast("没有干货了");
                 }
             }
         };
